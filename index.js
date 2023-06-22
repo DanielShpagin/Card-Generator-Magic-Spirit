@@ -5,7 +5,7 @@ const fs = require('fs');
 const http = require('http');
 const bodyParser = require('body-parser');
 const server = http.createServer(app);
-const port = 3000;
+const port = 6435;
 
 const configuration = new openai.Configuration({
     apiKey: "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",
