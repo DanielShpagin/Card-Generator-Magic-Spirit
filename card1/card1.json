@@ -1,0 +1,12 @@
+[
+    {
+        "id": "attack", 
+        "type": "number", 
+        "name": "Attack"
+    }, 
+    {
+        "id": "health", 
+        "type": "number", 
+        "name": "Health"
+    }
+]

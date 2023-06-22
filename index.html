@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Card generator</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="inner_container">
+            <div class="types_container"></div>
+            <div class="dialog">
+                <div class="div1">
+                    <div class="column1">
+                        <select class="cards_select">
+                            <option>Select Card</option>
+                        </select>
+                        <input class="add_card_input">
+                    </div>
+
+                    <div class="column2">
+                        <input class="button_start" type="button" value="START">
+                        <input class="add_card_button" type="button" value="ADD">
+                    </div>
+                </div>
+
+                <div class="div2">
+                    <div class="stats_container">
+                        <div class="stat1 stat">
+                            <div class="text">Mana: </div>
+                            <input type="number" class="mana_input">
+                        </div>
+
+                        <div class="stat2 stat">
+                            <div class="mana_container"></div>
+                        </div>
+
+                        <div class="stat3 stat">
+                            <div class="attack_container">
+                                <div class="text">Attack: </div>
+                                <input class="attack_input">
+                            </div>
+                            <div class="health_container">
+                                <div class="text">Health: </div>
+                                <input class="hp_input">
+                            </div>
+                        </div>
+
+                        <div class="stat4 stat">
+                            <div class="name_container">
+                                <div class="text">Name: </div>
+                                <input class="name_input">
+                            </div>
+                            <div class="class_container">
+                                <div class="text">Class: </div>
+                                <input class="class_input">
+                            </div>
+                        </div>
+
+                        <div class="stat5 stat">
+                            <div class="text">Text: </div>
+                            <div class="text_container">
+                                <textarea class="text_textarea"></textarea>
+                                <div class="textitems_container">
+                                    <div class="manaitem">
+                                        <div class="manaitem_btn">M</div>
+                                        <!--<div class="manaitem_dropdown">
+                                        <div class="manaitem_dropdown_btn">Select</div>
+                                            <div class="manaitem_dropdown_content">
+                                                <a>Select</a>
+                                                <a>
+                                                    <img src="/images/water-element.svg">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="plusbutton">+</div>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text">Generate image: </div>
+                            <textarea class="gen_image_textarea"></textarea>
+                            <div class="buttons">
+                                <input type="button" class="gen_image_button" value="Generate">
+                                <!--<input type="button" class="save_image_button" value="Save">-->
+                            </div>
+                        </div>
+
+                        <div class="stat6 stat">
+                            <input type="button" class="create_button" value="Create">
+                            <label for="file" class="custom-file-input">
+                                Choose a file
+                            </label>
+                            <input type="file" class="file" id="file">
+                        </div>
+                    </div>
+
+                    <div class="card_container">
+                        <canvas class="card_canvas"></canvas>
+                        <!--<div class="card_header">
+                            <div class="card">
+                                <div class="card-text"></div>
+                                <div class="card-name"></div>
+                                <div class="card-attack"></div>
+                                <div class="card-health"></div>
+                                <div class="card-mana"></div>
+                            </div>
+                            <div class="card-image"></div>
+                        </div>-->
+                        <div class="line-container">
+                            <div class="line"></div>
+                            <div class="circle"></div>
+                        </div>
+                        <!--<div class="card">
+                            <div class="card-header">-->
+                        <!--<div class="card-mana"></div>-->
+                        <!--<div class="card-mana-container"></div>
+                                <div class="card-image"></div>-->
+                        <!--<img class="card-image-border" src="images/card-image-border.png">-->
+                        <!--<div class="card-name-container">
+                                    <div class="card-name"></div>
+                                    <img src="images/card-name.png" class="card-name-image">
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <img class="card-text-image" src="images/card-text.png">
+                                <div class="card-text">
+                                    <p></p>
+                                </div>
+                            </div>
+
+                            <div class="card-stats-container">
+                                <div class="card-attack">
+                                    <div class="attack-value"></div>
+                                </div>
+                                <div class="card-class"></div>
+                                <div class="card-health">
+                                    <div class="health-value"></div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

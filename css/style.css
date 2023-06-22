@@ -1,0 +1,1329 @@
+@font-face {
+    font-family: 'Franklin Gothic';
+    src: url('/fonts/Franklin\ Gothic\ Medium\ Cond\ Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*
+
+Double Strike
+Lifeseal
+Magnetize
+1234567890
+
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+@font-face {
+    font-family: 'Belwe';
+    src: url('/fonts/BelweStd-Light.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+p {
+    user-select: none;
+}
+
+#text {
+    line-height: 10;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/background.jpeg');
+    background-size: cover;
+    position: relative;
+}
+
+.inner_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog {
+    width: 1200px;
+    height: 650px;
+    border-radius: 10px;
+
+    background-color: #191621;
+
+    display: flex;
+}
+
+textarea {
+    resize: none;
+}
+
+/* div1 */
+
+.div1 {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* div2 */
+
+.div2 {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+}
+
+/* column1 */
+
+.column1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.cards_select {
+    margin: 10px;
+    padding: 10px;
+
+    text-align: center;
+
+    background-color: #191621;
+    color: white;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    font-family: 'Belwe', serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.add_card_input {
+    margin: 10px;
+    padding: 10px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    font-family: 'Belwe', serif;
+    font-size: 30px;
+}
+
+/* column2 */
+
+.column2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.button_start {
+    margin: 10px;
+    padding: 10px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    font-family: 'Belwe', serif;
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+.button_start:hover {
+    background-color: #4b5662;
+}
+
+.add_card_button {
+    margin: 10px;
+    padding: 10px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    font-family: 'Belwe', serif;
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+.add_card_button:hover {
+    background-color: #4b5662;
+}
+
+/* div3 */
+
+.div3 {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+}
+
+/* choose_type_container_1 */
+
+/*.choose_type_container_1 {
+    margin: auto;
+    display: flex;
+}
+
+.choose_type_container_1 div {
+    margin: 10px;
+
+    cursor: pointer;
+}
+
+.choose_type_container_1 div:hover {
+    border-color: #191621;
+}
+
+.creature_type_1 {
+    background-image: url('/images/creature.png');
+    background-size: cover;
+    background-position: center center;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    width: 100px;
+    height: 100px;
+}
+
+.spell_type_1 {
+    background-image: url('/images/spell.jpg');
+    background-size: cover;
+    background-position: center center;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    width: 100px;
+    height: 100px;
+}
+
+.unknown_type_1 {
+    background-color: #191621;
+
+    border: 3px solid #4b5662;
+    border-radius: 10px;
+
+    width: 100px;
+    height: 100px;
+}*/
+
+/* types_container */
+
+.types_container {
+    display: flex;
+}
+
+.types_container .type {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    width: 100px;
+    height: 50px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #100e16;
+    color: white;
+
+    font-family: 'Belwe', serif;
+}
+
+.types_container .first_type {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    width: 100px;
+    height: 50px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #191621;
+    color: white;
+
+    font-family: 'Belwe', serif;
+}
+
+.types_container div:hover {
+    border-color: #191621;
+}
+
+/*.creature {
+    background-image: url('/images/creature.png');
+}*/
+
+/* line */
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: #4b5662;
+}
+
+/* mana_container */
+
+.mana_container {
+    display: flex;
+
+    width: 100%;
+}
+
+.mana_container .mana {
+    width: 50px;
+    height: 50px;
+
+    margin: 5px;
+
+    border-radius: 5px;
+    border: none;
+
+    color: white;
+    text-align: center;
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.text {
+    color: white;
+    margin: 5px;
+    font-size: 18px;
+    font-family: 'Belwe';
+}
+
+/* buttons */
+
+.buttons {
+    display: flex;
+}
+
+/* gen_image */
+
+.gen_image_textarea {
+    width: 300px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+
+    font-size: 20px;
+
+    margin-left: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.gen_image_button,
+.save_image_button {
+    width: 100px;
+    height: 30px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    cursor: pointer;
+    font-family: 'Belwe', serif;
+}
+
+.save_image_button {
+    margin-left: 10px;
+}
+
+/* text */
+
+.text_textarea {
+    height: 100px;
+    width: 300px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+
+    font-size: 20px;
+
+    margin-left: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* health_container */
+
+.health_container,
+.attack_container {
+    display: flex;
+    align-items: center;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hp_input,
+.attack_input {
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+
+    background-color: #191621;
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: 'Belwe', serif;
+}
+
+.health_container {
+    margin-left: 10px;
+}
+
+/*.back_element {
+    width: 50px;
+    height: 50px;
+
+    margin: 5px;
+
+    border-radius: 5px;
+
+    position: relative;
+}*/
+
+/* stats_container */
+
+.stats_container {
+    flex: 2;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* stat */
+
+.stat {
+    border-bottom: 2px solid #4b5662;
+}
+
+/* stat1 */
+
+.stat1 {
+    border: none;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.mana_input {
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+
+    background-color: #191621;
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: 'Belwe', serif;
+}
+
+/* stat2 */
+
+.stat2 {
+    display: flex;
+    border-top: 2px solid #4b5662;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* stat3 */
+
+.stat3 {
+    display: flex;
+    border-bottom: 2px solid #4b5662;
+}
+
+/* stat4 */
+
+.stat4 {
+    display: flex;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.name_container {
+    display: flex;
+}
+
+.class_container {
+    display: flex;
+    margin-left: 10px;
+}
+
+.name_input,
+.class_input {
+    height: 30px;
+    font-size: 18px;
+    color: white;
+
+    background-color: #191621;
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: 'Belwe', serif;
+}
+
+.name_input {
+    width: 200px;
+}
+
+.class_input {
+    width: 120px;
+}
+
+/* stat5 */
+
+.stat5 {
+    padding-top: 5px;
+}
+
+/* text_container */
+
+.text_container {
+    display: flex;
+}
+
+/* textitems_container */
+
+.textitems_container {
+    margin-left: 10px;
+    display: flex;
+}
+
+/* manaitem */
+
+.manaitem {
+    display: flex;
+}
+
+.manaitem_btn {
+    background-color: #191621;
+    color: #3287c6ff;
+
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-size: 15px;
+    font-family: "Belwe";
+
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+/*.manaitem_dropdown {
+    position: relative;
+    display: inline-block;
+    height: auto;
+}
+
+.manaitem_dropdown_content {
+    margin-top: -1.5px;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    width: 76px;
+
+    border: 2px solid #4b5662;
+    border-bottom: none;
+    border-radius: 3px;
+}
+
+.manaitem_dropdown_content a {
+    background-color: #191621;
+    color: white;
+
+    border-bottom: 2px solid #4b5662;
+
+    font-size: 15px;
+    font-family: "Belwe";
+
+    width: 76px;
+    height: 30px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.manaitem_dropdown_content a img {
+    width: 20px;
+    height: 20px;
+}
+
+.manaitem_dropdown:hover .manaitem_dropdown_content {
+    display: flex;
+}
+
+.manaitem_dropdown_btn {
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-size: 15px;
+    font-family: "Belwe";
+
+    width: 76px;
+    height: 26px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.manaitem_dropdown_btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.plusbutton {
+    margin-left: 5px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: 'Belwe', serif;
+    font-size: 20px;
+
+    cursor: pointer;
+
+    height: 26px;
+    width: 26px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}*/
+
+/*.manaitem_select {
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-size: 15px;
+    font-family: "Belwe";
+
+    margin: 0px;
+    margin-top: 0;
+
+    width: 80px;
+    height: 30px;
+
+    text-align: center;
+}
+
+.manaitem_select option {
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+}
+
+.plusbutton {
+    margin-left: 5px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: 'Belwe', serif;
+    font-size: 20px;
+
+    cursor: pointer;
+
+    height: 30px;
+    width: 30px;
+}*/
+
+/* stat6 */
+
+.stat6 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.create_button {
+    width: 100px;
+    height: 30px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    cursor: pointer;
+    font-family: 'Belwe', serif;
+}
+
+.file {
+    display: none;
+}
+
+.custom-file-input {
+    display: inline-block;
+
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+
+    text-align: center;
+    font-family: "Belwe";
+
+    border: 2px solid #4b5662;
+    border-radius: 5px;
+
+    background-color: #191621;
+    color: white;
+
+    cursor: pointer;
+}
+
+/* card_canvas */
+
+.card_canvas {
+    /*width: calc(482px*0.7);
+    height: calc(665px*0.7);*/
+    width: calc(482px);
+    height: calc(665px);
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* card */
+
+.card_container {
+    display: flex;
+
+    border-left: 2px solid #4b5662;
+
+    position: relative;
+    width: 482px;
+    height: 100%;
+}
+
+.card_header {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: calc(482px*0.7);
+    height: calc(665px*0.7);
+}
+
+.card {
+    background-image: url('/images/card.svg');
+    width: 101%;
+    height: 100%;
+    background-size: 100% 100%;
+    z-index: 2;
+
+    position: absolute;
+    left: -0.5%;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+
+    background-size: 100% auto;
+    background-position: center;
+    background-image: url('/images/test-merfolk.jpg');
+
+    pointer-events: auto;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 1;
+}
+
+.card-text {
+    position: absolute;
+    top: calc(420px*0.7);
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 3;
+
+    width: calc(400px*0.7);
+    height: calc(200px*0.7);
+
+    font-family: 'Franklin Gothic', sans-serif;
+    color: rgb(255, 255, 255);
+
+    word-wrap: break-word;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    white-space: pre;
+
+    text-align: center;
+}
+
+.card-text p {
+    word-wrap: break-word;
+    white-space: pre;
+}
+
+/*.card-text m {
+    background-image: url('/images/mana-element.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-size: 20px;
+}*/
+
+.card-name {
+    position: absolute;
+    top: calc(8px*0.7);
+    left: calc(10px*0.7);
+    font-size: 27px;
+
+    font-family: 'Franklin Gothic', sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+.card-attack {
+    position: absolute;
+    top: calc(610px*0.7);
+    left: calc(55px*0.7);
+
+    transform: translate(-50%, -50%);
+
+    width: calc(60.615px*0.7);
+    text-align: center;
+
+    font-family: 'Franklin Gothic', sans-serif;
+    font-size: 30px;
+
+    color: rgb(255, 255, 255);
+}
+
+.card-health {
+    position: absolute;
+    top: calc(608px*0.7);
+    left: calc(430px*0.7);
+
+    transform: translate(-50%, -50%);
+
+    width: calc(60.615px*0.7);
+    text-align: center;
+
+    font-family: 'Franklin Gothic', sans-serif;
+    font-size: 30px;
+
+    color: rgb(255, 255, 255);
+}
+
+.card-mana {
+    position: absolute;
+    top: calc(20px*0.7);
+    left: calc(408px*0.7);
+
+    width: calc(60.615px*0.7);
+    text-align: center;
+
+    font-family: 'Franklin Gothic', sans-serif;
+    font-size: 30px;
+
+    color: rgb(255, 255, 255);
+}
+
+/* line-container */
+
+.line-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('/images/line-container.svg');
+    background-size: cover;
+
+    width: calc(336px*0.6);
+    height: calc(73px*0.6);
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    transform: translateX(-50%);
+}
+
+.line {
+    width: 85%;
+    height: 4px;
+    background-color: #4b5662;
+    /*background-color: #ad78b0;*/
+    border-radius: 5px;
+}
+
+.circle {
+    position: absolute;
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #191621;
+    transform: translateX(-50%);
+}
+
+/*.card {
+    background-color: white;
+    border-radius: 10px;
+    width: calc(63mm*1.2);
+    height: calc(88mm*1.2);
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: auto;
+
+    position: relative;
+
+    background-image: url('/images/card.svg');
+}
+
+.card-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: calc(63mm*1.2);
+    height: calc(88mm*1.2);
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+}
+
+.card-mana {
+    position: absolute;
+    top: 2%;
+    left: 83%;
+
+    width: 40px;
+    height: 40px;
+
+    color: white;
+
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: 100% 100%;
+
+    font-family: 'Belwe', serif;
+    font-size: 20px;
+    font-weight: bold;
+
+    margin: 2px;
+
+    background-image: url('/images/mana-crystal-element.png');
+}
+
+.card-mana-container {
+    width: 100%;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    z-index: 2;
+    position: absolute;
+
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+.mana-element {
+    width: 40px;
+    height: 40px;
+
+    color: white;
+
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-size: 100% 100%;
+
+    font-family: 'Belwe', serif;
+    font-size: 20px;
+    font-weight: bold;
+
+    margin: 2px;*/
+
+/*filter: drop-shadow(0px 0px 1px rgb(0, 26, 73)) drop-shadow(0px 0px 1px rgb(0, 26, 73)) drop-shadow(0px 0px 1px rgb(0, 26, 73));*/
+/*}
+
+/* card-name-container */
+
+/*.card-name-container {
+    width: 100%;
+
+    margin-top: -10px;
+    margin-bottom: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+
+    position: absolute;
+    top: 225px;
+}
+
+.card-name-image {
+    width: 98%;
+}
+
+.card-name {
+    border-radius: 5px;
+
+    font-size: 20px;
+    font-family: "Belwe";
+    text-align: center;
+
+    color: black;
+
+    position: absolute;
+}
+
+.card-body {
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+
+    margin-top: 20px;
+}
+
+.card-image {
+    margin-top: 17px;
+    background-size: cover;
+    background-color: rgb(0, 50, 143);
+    width: 250px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.card-image-border {
+    width: 280px;
+    height: 180px;
+    position: absolute;
+    top: 13px;
+}
+
+.card-text {
+    font-family: 'Franklin Gothic', sans-serif;
+
+    height: 132px;
+    width: 240px;
+
+    color: rgb(0, 0, 0);
+
+    border-radius: 5px;
+    padding: 10px;
+
+    word-wrap: break-word;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    white-space: pre;*/
+
+/*text-shadow: 0px 0px 1px #000;*/
+/*line-height: 1.2;
+
+    font-size: 24px;
+
+    text-align: center;
+
+    z-index: 1;
+}
+
+.card-text p {
+    margin: 0;
+}
+
+.card-text-image {
+    position: absolute;
+
+    height: 132px;
+    width: 240px;
+
+    padding: 10px;
+}
+
+.card-stats-container {
+    position: absolute;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    top: 87%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 95%;
+}
+
+.card-attack,
+.card-health {
+    width: 45px;
+    height: 45px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+}
+
+.card-attack {
+    background-color: orange;
+}
+
+.card-health {
+    background-color: red;
+}
+
+.card-class {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #191621;
+    color: white;
+    height: 25px;
+    width: 140px;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 13px;
+}
+
+/*
+
+/*.card_container {
+    flex: 1;
+}
+
+.mana_container {
+    width: 100%;
+    display: flex;
+}
+
+.mana {
+    width: 60px;
+    height: 20px;
+    margin: 10px;
+    margin-top: 0;
+    font-size: 15px;
+    color: white;
+
+    background-color: #191621;
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: "Belwe";
+}
+
+.p1 {
+    margin: 10px;
+    font-size: 15px;
+    color: white;
+    font-family: "Belwe";
+}
+
+.p2 {
+    margin: 10px;
+    font-size: 15px;
+    color: white;
+    font-family: "Belwe";
+}
+
+.div1 {
+    display: flex;
+}
+
+.div2 {
+    display: flex;
+    margin: 10px;
+    margin-right: 0;
+    font-size: 15px;
+    color: white;
+    font-family: "Belwe";
+}
+
+.hp_input {
+    width: 60px;
+    height: 20px;
+    margin: 10px;
+    margin-top: 0;
+    font-size: 15px;
+    color: white;
+
+    background-color: #191621;
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: "Belwe";
+}
+
+.div3 {
+    display: flex;
+    margin: 10px;
+    font-size: 15px;
+    color: white;
+    font-family: "Belwe";
+}
+
+.attack_input {
+    width: 60px;
+    height: 20px;
+    margin: 10px;
+    margin-top: 0;
+    font-size: 15px;
+    color: white;
+
+    background-color: #191621;
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-family: "Belwe";
+}
+
+.p5 {
+    display: flex;
+    margin: 10px;
+    margin-right: 0;
+    font-size: 15px;
+    color: white;
+    font-family: "Belwe";
+}
+
+select {
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+    border-radius: 3px;
+
+    font-size: 15px;
+    font-family: "Belwe";
+
+    margin: 10px;
+    margin-top: 0;
+}*/
+
+/* card */
