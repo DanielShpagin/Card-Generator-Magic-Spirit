@@ -236,7 +236,7 @@
 
                         var lines = separationText(text, w, h, fontSize);
 
-                        var x = 240;
+                        var x = 220;
                         var y = 510;
 
                         /*ctx.beginPath();
@@ -258,6 +258,9 @@
                         var boxHeight = n * fontHeight - spaceHeight;
 
                         for (let i = 0; i < lines.length; i++) {
+                            let metrics = ctx.measureText(lines[i]);
+                            let textWidth = metrics.width;
+                            let x = canvas.width / 2 - textWidth / 2;
                             ctx.fillText(lines[i], x, y + i * fontHeight - boxHeight / 2 + (fontHeight - spaceHeight) / 2);
                         }
                     }
