@@ -506,7 +506,7 @@ textarea {
 }
 
 .name_input,
-.class_input {
+.legend_text_input {
     height: 30px;
     font-size: 18px;
     color: white;
@@ -522,7 +522,7 @@ textarea {
     width: 200px;
 }
 
-.class_input {
+.legend_text_input {
     width: 120px;
 }
 

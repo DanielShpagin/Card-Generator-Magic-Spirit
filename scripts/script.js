@@ -22,49 +22,8 @@
     document.querySelector('.button_start').addEventListener('click', function createCardTemplate(event) {
         var value = document.querySelector('.cards_select').value;
 
-        /*console.log(document.querySelector('.manaitem_dropdown_content').children);
-        for (var i = 0; i < document.querySelector('.manaitem_dropdown_content').children.length; i++) {
-            var child = document.querySelector('.manaitem_dropdown_content').children[i];
-            child.addEventListener('click', (event) => {
-                console.log(event.target.innerHTML);
-                document.querySelector('.manaitem_dropdown_btn').innerHTML = event.target.innerHTML;
-                console.log(document.querySelector('.manaitem_dropdown_btn').innerHTML);
-            });
-        }*/
-
-        /*document.querySelector('.manaitem_dropdown_content').children.forEach(child => {
-            child.addEventListener('click', (event) => {
-                document.querySelector('.manaitem_dropdown_btn').innerHTML = event.target.innerHTML;
-            });
-        });*/
-
-        /*var mana_elements = [/*'fire', *//*'water'/*, 'earth', 'wind', 'lightling', 'ice', 'dark', 'blood', 'light', 'mechanincs'*//*];
-        for (var i = 0; i < mana_elements.length; i++) {
-            var manaitem_option = document.createElement('option');
-            //manaitem_option.style.backgroundImage = `url(/images/${mana_elements[i]}-element.svg)`;
-            manaitem_option.style.backgroundImage = `url('/images/${mana_elements[i]}-element.svg')`;
- 
-            document.querySelector('.manaitem_select').appendChild(manaitem_option);
-        }*/
-
-        /*document.querySelector('.manaitem_dropdown_btn').addEventListener('click', () => {
-            document.querySelector('.manaitem_dropdown_content').classList.toggle('show');
-        });
-
-        /*document.addEventListener('DOMContentLoaded', () => {
-            const dropdownBtn = document.querySelector('.dropdown-btn');
-            const dropdownContent = document.querySelector('.dropdown-content');
-
-            dropdownBtn.addEventListener('click', () => {
-                dropdownContent.classList.toggle('show');
-            });
-        });*/
-
         if (value !== 'Select Card') {
             document.querySelector('.button_start').removeEventListener('click', createCardTemplate);
-
-            /*document.querySelector('.div1').style.display = 'none';
-            document.querySelector('.div2').style.display = 'block';*/
 
             document.querySelector('.div1').style.display = 'none';
 
@@ -86,18 +45,15 @@
                     const canvas = document.querySelector('.card_canvas');
                     const ctx = canvas.getContext('2d');
 
-                    console.log(canvas);
-
-                    let isScaling = false;
-
                     const image_background = new Image();
                     image_background.src = './images/test-merfolk.jpg';
 
                     const image_frame = new Image();
                     image_frame.src = './images/card.svg';
 
-                    var centerCanvasX = canvas.width / 2;
-                    var centerCanvasY = canvas.height / 2;
+                    const imageLoader = document.querySelector('#file');
+                    imageLoader.addEventListener('change', handleImage, false);
+                    console.log(imageLoader);
 
                     var x = 0;
                     var y = 0;
@@ -113,7 +69,6 @@
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                         if (image_backgroundLoaded && image_frameLoaded) {
-                            console.log(centerCanvasX);
                             const devicePixelRatio = window.devicePixelRatio || 1;
                             canvas.width = image_frame.width * devicePixelRatio;
                             canvas.height = image_frame.height * devicePixelRatio;
@@ -160,51 +115,93 @@
 
                             ctx.drawImage(image_background, imageX, imageY, scaledWidth, scaledHeight);
 
-                            var fontSize = 53;
+                            var fontSize = 60;
 
                             ctx.globalCompositeOperation = 'source-over';
-                            ctx.font = `${fontSize}px Franklin Gothic`;
+                            ctx.font = `50px Franklin Gothic`;
                             ctx.fillStyle = '#8cbde1ff';
-                            ctx.fillText(document.querySelector('.name_input').value, 15.073, 49);
+                            var name_value = document.querySelector('.name_input').value;
+                            var name_width = ctx.measureText(name_value).width;
+                            ctx.fillText(document.querySelector('.name_input').value, 10, 48);
 
                             var mana_value = document.querySelector('.mana_input').value;
 
                             ctx.font = `${45.4184 / cof}px Franklin Gothic`;
                             ctx.fillStyle = '#8cbde1ff';
 
-                            var x = 440;
-                            var y = 35;
+                            var x1 = 439;
+                            var y1 = 63;
 
-                            ctx.font = `${fontSize}px Arial`;
+                            ctx.font = `bold ${fontSize}px Franklin Gothic`;
+
+                            if (mana_value === '2' || mana_value === '3' || mana_value === '9') {
+                                x1 = x1+2;
+                            } else if (mana_value === '8') x1 = x1+1;
 
                             var mana_width = ctx.measureText(mana_value).width;
-                            var mana_height = fontSize;
 
-                            console.log(x-mana_width/2, y+mana_height/2)
+                            console.log(mana_width);
 
-                            ctx.fillText(mana_value, x-mana_width/2, y+mana_height/2);
+                            ctx.fillText(mana_value, x1-mana_width/2, y1);
 
-                            var x1 = 55;
-                            var y1 = 615;
+                            var x2 = 55;
+                            var y2 = 630;
 
                             var attack_value = document.querySelector('.attack_input').value;
+                            var attack_width = ctx.measureText(attack_value).width;
 
-                            ctx.textAlign = "center";
-                            ctx.textBaseline = "middle";
+                            if (attack_value === '2' || attack_value === '3' || attack_value === '9') {
+                                x2 = x2+2;
+                            } else if (attack_value === '8') x2 = x2+1;
 
-                            ctx.fillText(attack_value, x1, y1);
+                            ctx.fillText(attack_value, x2-attack_width/2, y2);
 
-                            var x2 = 430;
-                            var y2 = 610;
+                            var x3 = 415.5;
+                            var y3 = 630;
 
                             var health_value = document.querySelector('.hp_input').value;
+                            var health_width = ctx.measureText(attack_value).width;
 
-                            ctx.textAlign = "center";
-                            ctx.textBaseline = "middle";
-                            ctx.fillText(health_value, x2, y2);
+                            if (health_value === '2' || health_value === '3' || health_value === '9') {
+                                x3 = x3+2;
+                            } else if (health_value === '8') x3 = x3+1;
+
+                            ctx.fillText(health_value, x3-health_width/2, y3);
+
+                            ctx.font = `40px Franklin Gothic`;
+
+                            var legend_text = document.querySelector('.legend_text_input').value;
+                            var legend_text_width = ctx.measureText(legend_text).width;
+
+                            var x4 = 245;
+                            var y4 = 657;
+
+                            ctx.fillText(legend_text, x4-legend_text_width/2, y4);
+
+                            if (legend_text) {
+                                var x5 = 195;
+                                var y5 = 75;
+
+                                ctx.font = `30px Franklin Gothic`;
+                                ctx.fillText('LEGEND', x5, y5);
+                            }
 
                             if (document.querySelector('.text_textarea').value) drawText();
                         }
+                    }
+
+                    function handleImage(e) {
+                        console.log(e);
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            console.log(event.target.result);
+                            image_background.src = event.target.result;
+                            image_background.onload = function () {
+                                image_backgroundLoaded = true;
+                                drawImages();
+                            }
+                        }
+                        reader.readAsDataURL(e.target.files[0]);  
                     }
 
                     function drawText() {
@@ -346,21 +343,17 @@
                     let image_backgroundLoaded = false;
                     let image_frameLoaded = false;
 
-                    if (canvas) {
-                        console.log(canvas);
-                        image_background.onload = function () {
-                            image_backgroundLoaded = true;
-                            drawImages(1, 0, 0);
-                        }
+                    image_background.onload = function () {
+                        image_backgroundLoaded = true;
+                        drawImages(1, 0, 0);
+                    }
 
-                        image_frame.onload = function () {
-                            image_frameLoaded = true;
-                            drawImages(1, 0, 0);
-                        }
+                    image_frame.onload = function () {
+                        image_frameLoaded = true;
+                        drawImages(1, 0, 0);
                     }
 
                     document.querySelector('.name_input').addEventListener('input', () => {
-                        console.log(document.querySelector('.name_input').value);
                         drawImages();
                     });
 
@@ -382,9 +375,36 @@
                         drawImages();
                     });
 
+                    document.querySelector('.create_button').addEventListener('click', () => {
+                        let link = document.createElement('a');
+                        var name_value = document.querySelector('.name_input').value;
+                        if (name_value) {
+                            link.download = `${encodeURIComponent(name_value)}.png`;
+                        } else link.download = `card.png`;
+                        link.download = 'image.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    })
+
+                    document.querySelector('.legend_text_input').addEventListener('input', () => {
+                        if (document.querySelector('.legend_text_input').value) {
+                            image_frame.src = './images/card-legend.svg';
+                            image_frame.onload = function () {
+                                image_frameLoaded = true;
+                                drawImages();
+                            }
+                        } else {
+                            image_frame.src = './images/card.svg';
+                            image_frame.onload = function () {
+                                image_frameLoaded = true;
+                                drawImages();
+                            }
+                        }
+                    });
+
                     document.querySelector('.text_textarea').addEventListener('input', () => {
                         drawImages();
-                    })
+                    });
 
                     let lastX;
                     let lastY;
@@ -437,7 +457,6 @@
                             positionInPercent = 90;
                         }
 
-                        // Розрахунок коефіцієнта від 1 до 3
                         const coefficient = 1 + ((positionInPercent - 10) / (90 - 10)) * 2;
                         circle.style.left = positionInPercent + "%";
 
@@ -550,7 +569,12 @@
                                 })
                             }).then(res => {
                                 res.text().then(txt => {
-                                    document.querySelector('.card-image').style.backgroundImage = `url(${txt})`;
+                                    console.log(txt);
+                                    image_background.src = txt;
+                                    image_background.onload = function () {
+                                        image_backgroundLoaded = true;
+                                        drawImages();
+                                    }
                                 });
                             });
                         }
