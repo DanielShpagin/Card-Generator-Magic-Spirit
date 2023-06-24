@@ -156,11 +156,11 @@
 
                             ctx.fillText(attack_value, x2-attack_width/2, y2);
 
-                            var x3 = 415.5;
+                            var x3 = 431;
                             var y3 = 630;
 
                             var health_value = document.querySelector('.hp_input').value;
-                            var health_width = ctx.measureText(attack_value).width;
+                            var health_width = ctx.measureText(health_value).width;
 
                             if (health_value === '2' || health_value === '3' || health_value === '9') {
                                 x3 = x3+2;
@@ -180,7 +180,7 @@
 
                             if (legend_text) {
                                 var x5 = 195;
-                                var y5 = 75;
+                                var y5 = 78;
 
                                 ctx.font = `30px Franklin Gothic`;
                                 ctx.fillText('LEGEND', x5, y5);
