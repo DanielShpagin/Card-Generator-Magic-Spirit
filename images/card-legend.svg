@@ -27,15 +27,15 @@
      showgrid="false"
      inkscape:lockguides="true"
      showguides="false"
-     inkscape:zoom="0.705"
-     inkscape:cx="-73.049645"
-     inkscape:cy="445.39007"
+     inkscape:zoom="2.82"
+     inkscape:cx="181.73759"
+     inkscape:cy="571.2766"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg5"
+     inkscape:current-layer="path8611"
      inkscape:pageshadow="2" />
   <defs
      id="defs2">
@@ -152,18 +152,13 @@
        id="path75086" />
     <g
        id="path8611"
-       style="display:inline"
-       transform="translate(1.2816667e-4,5.25e-5)">
+       style="display:inline;stroke-width:0;stroke-dasharray:none"
+       transform="translate(10.129337,-12.560155)">
       <path
-         style="color:#000000;fill:#004285;fill-opacity:0.709804;stroke-width:0.314984;-inkscape-stroke:none"
-         d="M 24.897381,175.85805 30,163.351 h 70 l 4.52846,12.59692 z"
+         style="color:#000000;fill:#004285;fill-opacity:0.709804;stroke-width:0;stroke-dasharray:none"
+         d="m 14.95205,188.4182 5.102619,-12.50705 h 70 l 4.52846,12.59692 z"
          id="path591"
          sodipodi:nodetypes="ccccc" />
-      <path
-         style="color:#000000;fill:#5084ff;-inkscape-stroke:none"
-         d="m 29.894531,163.19336 -5.21803,12.75456 h 0.22088 79.809639 l -4.59569,-12.75456 z m 0.210938,0.31445 h 69.783203 l 4.511528,12.23407 -79.269341,-0.0407 z"
-         id="path593"
-         sodipodi:nodetypes="ccccccccccc" />
     </g>
   </g>
   <g
