@@ -178,14 +178,6 @@
 
                             ctx.fillText(legend_text, x4-legend_text_width/2, y4);
 
-                            if (legend_text) {
-                                var x5 = 195;
-                                var y5 = 78;
-
-                                ctx.font = `30px Franklin Gothic`;
-                                ctx.fillText('LEGEND', x5, y5);
-                            }
-
                             if (document.querySelector('.text_textarea').value) drawText();
                         }
                     }
