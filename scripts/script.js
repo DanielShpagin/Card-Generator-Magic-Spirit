@@ -324,6 +324,7 @@
                             if (lines.length === 1) lineY += 15;
                             if (lines.length === 2) lineY += 15;
                             if (lines.length === 3) lineY += -5;
+                            if (lines.length === 4) lineY -= 10;
                             
                             for (var j = 0; j < parts.length; j++) {
                                 if (parts[j] === '[b]') {
