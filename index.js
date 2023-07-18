@@ -87,10 +87,14 @@ app.post('/generate-image', async (req, res) => {
             size: "256x256"
         });
 
+        console.log(response);
+
         if (response.data && response.data.data && response.data.data.length > 0) {
+            console.log(response.data.data[0].url);
             res.send(response.data.data[0].url);
         } else res.send(JSON.stringify(response, null, " "));
     } catch (error) {
+        console.log(error);
         /*if (error.response && error.response.data.error.message) {
             res.send("Unable to generate!<br>" + error.response.data.error.message);
         } else res.send("Unable to generate!");*/

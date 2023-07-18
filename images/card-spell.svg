@@ -27,15 +27,15 @@
      showgrid="false"
      inkscape:lockguides="true"
      showguides="false"
-     inkscape:zoom="0.99702056"
-     inkscape:cx="30.591144"
-     inkscape:cy="330.98615"
+     inkscape:zoom="5.64"
+     inkscape:cx="103.5461"
+     inkscape:cy="-34.751773"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer2" />
   <defs
      id="defs2">
     <linearGradient
@@ -155,18 +155,6 @@
      id="layer2"
      inkscape:label="Layer 2"
      style="display:inline">
-    <ellipse
-       style="fill:#3287c6;fill-opacity:1;stroke:#1c45db;stroke-width:1.058;stroke-dasharray:none;stroke-opacity:1"
-       id="path111"
-       cx="20.69529"
-       cy="160.75816"
-       transform="rotate(2.1768549)"
-       rx="10.605337"
-       ry="10.605333" />
-    <path
-       id="path7764"
-       style="fill:#3287c6;fill-opacity:1;fill-rule:nonzero;stroke:#1c45db;stroke-width:1.05807;stroke-dasharray:none;stroke-opacity:1"
-       d="m 114.15841,150.85639 -3.89331,1.46606 -1.20147,0.35398 -0.80099,0.20671 -0.95705,0.14779 -1.43505,0.18707 -0.90124,0.108 -0.58962,0.0687 -0.15555,-0.01 v 0.13797 l -0.0222,1.04335 0.17777,2.204 0.17776,2.58795 0.43408,2.3518 0.73433,2.07636 0.77876,1.54512 1.10122,1.43661 0.90124,1.05316 2.36937,2.096 2.09134,1.57458 1.0573,0.49196 1.21233,-0.51211 3.14813,-2.096 1.1684,-1.06247 2.00246,-2.41122 0.94568,-1.6924 0.74518,-1.9973 0.47852,-1.67328 0.15555,-0.9741 0.12247,-1.4857 -0.0109,-0.41341 0.0222,-0.28525 v -0.2558 l 0.0109,-0.37414 0.0336,-0.32453 -0.0114,-0.22634 0.0336,-0.40359 -0.0114,-0.37414 0.0227,-0.57051 0.0222,-0.43305 v -0.43304 l 0.0109,-0.50178 -3.08146,-0.45269 -2.83652,-0.68884 -2.24741,-0.85628 z" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.05807;stroke-dasharray:none;stroke-opacity:1"

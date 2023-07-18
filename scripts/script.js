@@ -53,7 +53,6 @@
 
                     const imageLoader = document.querySelector('#file');
                     imageLoader.addEventListener('change', handleImage, false);
-                    console.log(imageLoader);
 
                     var x = 0;
                     var y = 0;
@@ -65,6 +64,8 @@
 
                     var cof = 0.75;
 
+                    var card_type = 'creature';
+
                     function drawImages() {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -74,7 +75,6 @@
                             canvas.height = image_frame.height * devicePixelRatio;
                             canvas.style.width = `${image_frame.width * cof}px`;
                             canvas.style.height = `${image_frame.height * cof}px`;
-                            ctx.scale(devicePixelRatio, devicePixelRatio);
                             ctx.imageSmoothingEnabled = false;
 
                             canvas.style.width = `${image_frame.width * cof}px`;
@@ -85,8 +85,8 @@
 
                             const aspectRatio = image_background.width / image_background.height;
 
-                            let newWidth = image_background.width;
-                            let newHeight = image_background.height;
+                            var newWidth = image_background.width;
+                            var newHeight = image_background.height;
 
                             if (image_background.width / image_background.height > image_frame.width / image_frame.height) {
                                 newHeight = canvas.height;
@@ -127,7 +127,7 @@
                             var mana_value = document.querySelector('.mana_input').value;
 
                             ctx.font = `${45.4184 / cof}px Franklin Gothic`;
-                            ctx.fillStyle = '#8cbde1ff';
+                            ctx.fillStyle = '#aed1eaff';
 
                             var x1 = 439;
                             var y1 = 63;
@@ -139,8 +139,6 @@
                             } else if (mana_value === '8') x1 = x1+1;
 
                             var mana_width = ctx.measureText(mana_value).width;
-
-                            console.log(mana_width);
 
                             ctx.fillText(mana_value, x1-mana_width/2, y1);
 
@@ -154,7 +152,7 @@
                                 x2 = x2+2;
                             } else if (attack_value === '8') x2 = x2+1;
 
-                            ctx.fillText(attack_value, x2-attack_width/2, y2);
+                            if (card_type !== 'spell') ctx.fillText(attack_value, x2-attack_width/2, y2);
 
                             var x3 = 431;
                             var y3 = 630;
@@ -166,7 +164,7 @@
                                 x3 = x3+2;
                             } else if (health_value === '8') x3 = x3+1;
 
-                            ctx.fillText(health_value, x3-health_width/2, y3);
+                            if (card_type !== 'spell') ctx.fillText(health_value, x3-health_width/2, y3);
 
                             ctx.font = `40px Franklin Gothic`;
 
@@ -178,15 +176,22 @@
 
                             ctx.fillText(legend_text, x4-legend_text_width/2, y4);
 
+                            if (legend_text && card_type !== 'spell') {
+                                var x5 = 189;
+                                var y5 = 82;
+
+                                ctx.fillStyle = '#aed1eaff';
+                                ctx.font = `27px Franklin Gothic`;
+                                ctx.fillText('LEGEND', x5, y5);
+                            }
+
                             if (document.querySelector('.text_textarea').value) drawText();
                         }
                     }
 
                     function handleImage(e) {
-                        console.log(e);
-                        let reader = new FileReader();
+                        var reader = new FileReader();
                         reader.onload = function (event) {
-                            console.log(event.target.result);
                             image_background.src = event.target.result;
                             image_background.onload = function () {
                                 image_backgroundLoaded = true;
@@ -198,20 +203,62 @@
 
                     function drawText() {
                         var mod = 2;
-                        var initialFontSize = 53 * 1.1;
+                        var initialFontSize = 40;
                         var fontSize = initialFontSize;
                         var text = document.querySelector('.text_textarea').value;
                         var w = 373 * 1.1;
                         var h = 180 * 1.1;
 
-                        var prevFit = checkText(text, w, h, fontSize);
+                        var x = 240;
+                        var y = 560;
+
+                        var polygon = [
+                            {x: x-w/2, y: y-h/2-20},
+                            {x: x+w/2, y: y-h/2-20},
+                            {x: x+w/2, y: y+h/2-82},
+                            {x: x+w/2-45, y: y+h/2-82},
+                            {x: x+w/2-45, y: y+h/2-82+80},
+                            {x: x+w/2-75-280, y: y+h/2-82+80},
+                            {x: x+w/2-75-280, y: y+h/2-82+80-82},
+                            {x: x+w/2-60-280-70, y: y+h/2-82+80-82}
+                        ]
+
+                        if (document.querySelector('.legend_text_input').value) {
+                            y -= 10;
+
+                            polygon = [
+                                {x: x-w/2, y: y-h/2-20},
+                                {x: x+w/2, y: y-h/2-20},
+                                {x: x+w/2, y: y+h/2-82},
+                                {x: x+w/2-45, y: y+h/2-82},
+                                {x: x+w/2-45, y: y+h/2-125+80},
+                                {x: x+w/2-75-280, y: y+h/2-125+80},
+                                {x: x+w/2-75-280, y: y+h/2-82+80-82},
+                                {x: x+w/2-60-280-70, y: y+h/2-82+80-82}
+                            ]
+                        }
+                        
+                        var w0 = polygon[1].x-polygon[0].x;
+                        var w1 = polygon[4].x-polygon[5].x;
+
+                        var h0 = polygon[2].y-polygon[1].y;
+                        var h1 = polygon[4].y-polygon[3].y;
+                        h0*=0.82;
+                        h1*=0.82;
+                        w1*=0.96;
+                        w0*=1.1;
+
+                        var h2 = h0+h1;
+
+                        var lines = fitText(text, w0, w1, h0, h1, fontSize);
+
+                        var prevFit = checkText(text, w0, w1, h0, h1, fontSize);
 
                         while (true) {
-                            if (mod <= 1.01) break;
-
-                            var nowFit = checkText(text, w, h, fontSize);
+                            var nowFit = checkText(text, w0, w1, h0, h1, fontSize);
 
                             if (nowFit) {
+                                if (mod <= 1.01) break;
                                 fontSize *= mod;
                             } else {
                                 fontSize /= mod;
@@ -226,117 +273,150 @@
 
                         if (fontSize > initialFontSize) fontSize = initialFontSize;
 
-                        var lines = separationText(text, w, h, fontSize);
-
-                        var x = 220;
-                        var y = 510;
-
-                        /*ctx.beginPath();
-                        ctx.arc(x, y, 10, 0, 2 * Math.PI);
-                        ctx.fillStyle = 'black';
-                        ctx.fill();
-
-                        ctx.beginPath();
-                        ctx.fillRect(x - w / 2, y - h / 2, w, h);
-                        ctx.fillStyle = 'black';
-                        ctx.fill();*/
-
                         ctx.font = `${fontSize}px Franklin Gothic`;
-                        ctx.fillStyle = '#8cbde1ff';
+                        ctx.fillStyle = '#aed1eaff';
 
+                        lines = fitText(text, w0, w1, h0, h1, fontSize);
+/*
+                        ctx.beginPath();
+                        ctx.fillStyle = 'black';
+                        ctx.moveTo(polygon[0].x, polygon[0].y);
+                        ctx.lineTo(polygon[1].x, polygon[1].y);
+                        ctx.lineTo(polygon[2].x, polygon[2].y);
+                        ctx.lineTo(polygon[3].x, polygon[3].y);
+                        ctx.lineTo(polygon[4].x, polygon[4].y);
+                        ctx.lineTo(polygon[5].x, polygon[5].y);
+                        ctx.lineTo(polygon[6].x, polygon[6].y);
+                        ctx.lineTo(polygon[7].x, polygon[7].y);
+                        ctx.fill();
+*/
                         var n = lines.length;
-                        var spaceHeight = fontSize * 0.2;
+                        var spaceHeight = fontSize * 0.1;
                         var fontHeight = fontSize + spaceHeight;
                         var boxHeight = n * fontHeight - spaceHeight;
 
-                        for (let i = 0; i < lines.length; i++) {
-                            let metrics = ctx.measureText(lines[i]);
-                            let textWidth = metrics.width;
-                            let x = canvas.width / 2 - textWidth / 2;
-                            ctx.fillText(lines[i], x, y + i * fontHeight - boxHeight / 2 + (fontHeight - spaceHeight) / 2);
+                        var trueX = polygon[0].x;
+                        var trueY = polygon[0].y;
+
+                        var nwide=0;
+                        for (var i = 0; i < lines.length; i++) {
+                            if(lines[i].is_wide)nwide++;
+                        }
+                        var fh = fontHeight*0.92;
+                        var localY = trueY + (h0-nwide*fh)/2 + fh;
+                        var h_top = y - (localY - fh);
+                        var h_bottom = y+ h0 + h1 - (localY - fh + fh*lines.length) - 25;
+                        if(h_bottom<h_top){
+                            localY -= (h_top-h_bottom)/2;
+                        }
+
+                        var isBold = false;
+
+                        for (var i = 0; i < lines.length; i++) {
+                            ctx.fillStyle = '#aed1eaff';
+
+                            var parts = lines[i].text.split(/(\[b\]|\[\/b\])/).filter(Boolean);
+
+                            var x = canvas.width / 2 - lines[i].width / 2;
+
+                            var lineY = localY + i * fontHeight;
+
+                            if (lines.length === 1) lineY += 15;
+                            if (lines.length === 2) lineY += 15;
+                            if (lines.length === 3) lineY += -5;
+                            
+                            for (var j = 0; j < parts.length; j++) {
+                                if (parts[j] === '[b]') {
+                                    ctx.font = `bold ${fontSize}px Franklin Gothic`;
+                                } else if (parts[j] === '[/b]') {
+                                    ctx.font = `${fontSize}px Franklin Gothic`;
+                                } else {
+                                    ctx.fillText(parts[j], x, lineY);
+                                    x += ctx.measureText(parts[j]).width;
+                                }
+                            }
                         }
                     }
 
-                    function separationText(text, w, h, fontSize) {
+                    function fitText(text, w0, w1, h0, h1, fontSize) {
                         if (text) {
                             ctx.font = fontSize + `px Franklin Gothic`;
                             ctx.fillStyle = '#8cbde1ff';
-
-                            let paragraphs = text.split('\n');
-                            let lines = [];
-
-                            for (let p = 0; p < paragraphs.length; p++) {
-                                let words = paragraphs[p].split(' ');
-                                let line = '';
-
-                                for (let n = 0; n < words.length; n++) {
-                                    let testLine = line + ' ' + words[n];
-                                    let metrics = ctx.measureText(testLine);
-                                    let testWidth = metrics.width;
-
-                                    if (testWidth > w) {
-                                        if (n === 0) return false
-                                        lines.push(line.trim());
-                                        line = words[n];
-                                    } else {
-                                        line = testLine;
+                    
+                            var lines = [];
+                            var is_wide = true;
+                    
+                            var y = 0;
+                            var spaceHeight = fontSize*0.1;
+                            var lineHeight = fontSize+spaceHeight;
+                    
+                            var newString = text.replace(new RegExp("\\n", 'g'), " \n ");
+                            var words = newString.split(' ');
+                            var line = '';
+                            var w=w0;
+                    
+                            for (var n = 0; n < words.length; n++) {
+                                var cur = words[n];
+                                var crret = cur == '\n';
+                                if (crret) cur = '';
+                    
+                                var testLine = line + ' ' + cur;
+                                var metricsTestLine = testLine.replace(/\[b\]|\[\/b\]/g, '');
+                                var testMetrics = ctx.measureText(metricsTestLine);
+                                var testWidth = testMetrics.width;
+                    
+                                if (testWidth > w || crret) {
+                                    var metricsLine = line.replace(/\[b\]|\[\/b\]/g, ''); // Ignore [b] and [/b] tags for measuring text
+                                    var lineMetrics = ctx.measureText(metricsLine);
+                                    var lineWidth = lineMetrics.width;
+                    
+                                    lines.push({
+                                        text: line.trim(), 
+                                        width: lineWidth, 
+                                        is_wide: is_wide
+                                    });
+                    
+                                    line = cur;
+                                    y += lineHeight;
+                    
+                                    if (y+lineHeight-spaceHeight>h0) {
+                                        is_wide = false;
+                                        w=w1;
                                     }
-                                }
-
-
-                                lines.push(line.trim());
+                                } else line = testLine;
                             }
-
+                    
+                            var metricsLine = line.replace(/\[b\]|\[\/b\]/g, ''); // Ignore [b] and [/b] tags for measuring text
+                            var lineMetrics = ctx.measureText(metricsLine);
+                            var lineWidth = lineMetrics.width;
+                    
+                            lines.push({
+                                text: line.trim(), 
+                                width: lineWidth, 
+                                is_wide: is_wide
+                            });
+                    
                             return lines;
                         }
                     }
-
-                    function checkText(text, width, height, fontSize) {
+                    
+                    function checkText(text, w0, w1, h0, h1, fontSize) {
                         if (text) {
-                            ctx.font = fontSize + `px Franklin Gothic`;
-                            ctx.fillStyle = '#8cbde1ff';
-
-                            let paragraphs = text.split('\n');
-                            let line = '';
-                            let y = 0;
-                            let lineHeight = fontSize * 1.2;
-
-                            for (let p = 0; p < paragraphs.length; p++) {
-                                let words = paragraphs[p].split(' ');
-                                line = '';
-
-                                for (let n = 0; n < words.length; n++) {
-                                    let testLine = line + ' ' + words[n];
-                                    let metrics = ctx.measureText(testLine);
-                                    let testWidth = metrics.width;
-
-                                    if (testWidth > width) {
-                                        if (n === 0) return false;
-
-                                        line = words[n];
-                                        y += lineHeight;
-
-                                        if (y + lineHeight > height) {
-                                            return false;
-                                        }
-                                    } else {
-                                        line = testLine;
-                                    }
-                                }
-
-                                y += lineHeight;
-
-                                if (y + lineHeight > height) {
-                                    return false;
-                                }
+                            var lines = fitText(text, w0, w1, h0, h1, fontSize);
+                            var spaceHeight = fontSize*0.1;
+                            var lineHeight = fontSize+spaceHeight;
+                            var linesHeight = lines.length*lineHeight-spaceHeight;
+                    
+                            if (linesHeight>h0+h1) {
+                                return false;
                             }
-
+                    
                             return true;
                         }
                     }
 
-                    let image_backgroundLoaded = false;
-                    let image_frameLoaded = false;
+                    var image_backgroundLoaded = false;
+                    var image_frameLoaded = false;
 
                     image_background.onload = function () {
                         image_backgroundLoaded = true;
@@ -371,7 +451,7 @@
                     });
 
                     document.querySelector('.create_button').addEventListener('click', () => {
-                        let link = document.createElement('a');
+                        var link = document.createElement('a');
                         var name_value = document.querySelector('.name_input').value;
                         if (name_value) {
                             link.download = `${encodeURIComponent(name_value)}.png`;
@@ -401,10 +481,10 @@
                         drawImages();
                     });
 
-                    let lastX;
-                    let lastY;
-                    let offsetX = 0;
-                    let offsetY = 0;
+                    var lastX;
+                    var lastY;
+                    var offsetX = 0;
+                    var offsetY = 0;
 
                     function calculateCoefficient(offsetLeft) {
                         const range = 190 - 10;
@@ -417,7 +497,7 @@
                     const line = document.querySelector('.line');
                     const circle = document.querySelector('.circle');
 
-                    let mouseDown = false;
+                    var mouseDown = false;
 
                     circle.addEventListener("mousedown", (e) => {
                         mouseDown = true;
@@ -435,7 +515,7 @@
                         const minX = lineRect.left;
                         const maxX = lineRect.right - circle.offsetWidth;
 
-                        let mouseX = e.clientX - circle.offsetWidth / 2;
+                        var mouseX = e.clientX - circle.offsetWidth / 2;
 
                         if (mouseX < minX) {
                             mouseX = minX;
@@ -444,7 +524,7 @@
                         }
 
                         const positionInPixels = mouseX - lineRect.left;
-                        let positionInPercent = (positionInPixels / (lineRect.width - circle.offsetWidth)) * 100;
+                        var positionInPercent = (positionInPixels / (lineRect.width - circle.offsetWidth)) * 100;
 
                         if (positionInPercent < 10) {
                             positionInPercent = 10;
@@ -460,11 +540,11 @@
                         drawImages();
                     });
 
-                    let isDragging = false;
-                    let lastMousePos;
+                    var isDragging = false;
+                    var lastMousePos;
 
                     canvas.addEventListener('mousedown', (e) => {
-                        if (e.button === 0) { // Ліва кнопка миші
+                        if (e.button === 0) {
                             isDragging = true;
                             lastMousePos = { x: e.clientX, y: e.clientY };
                         }
@@ -521,12 +601,36 @@
                                 'creature': () => {
                                     document.querySelector('.attack_input').disabled = false;
                                     document.querySelector('.hp_input').disabled = false;
-                                    document.querySelector('.card-stats-container').style.display = 'flex';
+                                    document.querySelector('.legend_text_input').disabled = false;
+
+                                    card_type = 'creature';
+
+                                    if (document.querySelector('.legend_text_input').value) {
+                                        image_frame.src = './images/card-legend.svg';
+                                        image_frame.onload = function () {
+                                            image_frameLoaded = true;
+                                            drawImages();
+                                        }
+                                    } else {
+                                        image_frame.src = './images/card.svg';
+                                        image_frame.onload = function () {
+                                            image_frameLoaded = true;
+                                            drawImages();
+                                        }
+                                    }
                                 },
                                 'spell': () => {
                                     document.querySelector('.attack_input').disabled = true;
                                     document.querySelector('.hp_input').disabled = true;
-                                    document.querySelector('.card-stats-container').style.display = 'none';
+                                    document.querySelector('.legend_text_input').disabled = true;
+
+                                    card_type = 'spell';
+
+                                    image_frame.src = './images/card-spell.svg';
+                                    image_frame.onload = function () {
+                                        image_frameLoaded = true;
+                                        drawImages();
+                                    }
                                 }
                             }
 
@@ -565,11 +669,6 @@
                             }).then(res => {
                                 res.text().then(txt => {
                                     console.log(txt);
-                                    image_background.src = txt;
-                                    image_background.onload = function () {
-                                        image_backgroundLoaded = true;
-                                        drawImages();
-                                    }
                                 });
                             });
                         }
