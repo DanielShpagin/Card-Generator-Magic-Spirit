@@ -60,35 +60,40 @@
                     var imageWidth = 0;
                     var imageHeight = 0;
 
-                    var scale = 1;
+                    var background_scale = 1;
 
                     var cof = 0.75;
 
                     var card_type = 'creature';
 
-                    function drawImages() {
+                    var backgroundX = 0;
+                    var backgroundY = 0;
+
+                    function drawCard(scale, canvas, ctx) {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                         if (image_backgroundLoaded && image_frameLoaded) {
                             const devicePixelRatio = window.devicePixelRatio || 1;
-                            canvas.width = image_frame.width * devicePixelRatio;
-                            canvas.height = image_frame.height * devicePixelRatio;
-                            canvas.style.width = `${image_frame.width * cof}px`;
-                            canvas.style.height = `${image_frame.height * cof}px`;
+                            canvas.width = image_frame.width*devicePixelRatio*scale;
+                            canvas.height = image_frame.height*devicePixelRatio*scale;
+                            canvas.style.width = `${image_frame.width*cof*scale}px`;
+                            canvas.style.height = `${image_frame.height*cof*scale}px`;
                             ctx.imageSmoothingEnabled = false;
 
-                            canvas.style.width = `${image_frame.width * cof}px`;
-                            canvas.style.height = `${image_frame.height * cof}px`;
+                            canvas.style.width = `${image_frame.width*cof}px`;
+                            canvas.style.height = `${image_frame.height*cof}px`;
 
-                            ctx.drawImage(image_frame, 0, 0);
+                            ctx.imageSmoothingQuality = 'high';
+
+                            ctx.drawImage(image_frame, 0, 0, image_frame.width*scale, image_frame.height*scale);
                             ctx.globalCompositeOperation = 'destination-over';
 
-                            const aspectRatio = image_background.width / image_background.height;
+                            const aspectRatio = image_background.width/image_background.height;
 
-                            var newWidth = image_background.width;
-                            var newHeight = image_background.height;
+                            var newWidth = image_background.width*scale;
+                            var newHeight = image_background.height*scale;
 
-                            if (image_background.width / image_background.height > image_frame.width / image_frame.height) {
+                            if (image_background.width/image_background.height > image_frame.width/image_frame.height) {
                                 newHeight = canvas.height;
                                 newWidth = newHeight * aspectRatio;
                             } else {
@@ -96,43 +101,47 @@
                                 newHeight = newWidth / aspectRatio;
                             }
 
-                            const scaledWidth = newWidth * scale;
-                            const scaledHeight = newHeight * scale;
+                            const scaledWidth = newWidth*background_scale;
+                            const scaledHeight = newHeight*background_scale;
 
                             imageWidth = newWidth;
                             imageHeight = newHeight;
 
-                            var imageX = (canvas.width - imageWidth * scale) / 2 + x * scale;
-                            var imageY = (canvas.height - imageHeight * scale) / 2 + y * scale;
+                            var imageX = (canvas.width-imageWidth*background_scale)/2+x*background_scale;
+                            var imageY = (canvas.height-imageHeight*background_scale)/2+y*background_scale;
 
                             if (imageX > 0) imageX = 0;
                             if (imageY > 0) imageY = 0;
-                            if (imageX + scaledWidth < canvas.width) imageX = canvas.width - scaledWidth;
-                            if (imageY + scaledHeight < canvas.height) imageY = canvas.height - scaledHeight;
+                            if (imageX + scaledWidth < canvas.width) imageX = canvas.width-scaledWidth;
+                            if (imageY + scaledHeight < canvas.height) imageY = canvas.height-scaledHeight;
 
-                            x = (imageX - (canvas.width - imageWidth * scale) / 2) / scale;
-                            y = (imageY - (canvas.height - imageHeight * scale) / 2) / scale;
+                            x = (imageX - (canvas.width-imageWidth*background_scale)/2)/background_scale;
+                            y = (imageY - (canvas.height-imageHeight*background_scale)/2)/background_scale;
+
+                            ctx.imageSmoothingQuality = 'high';
 
                             ctx.drawImage(image_background, imageX, imageY, scaledWidth, scaledHeight);
 
                             var fontSize = 60;
 
                             ctx.globalCompositeOperation = 'source-over';
-                            ctx.font = `50px Franklin Gothic`;
+                            ctx.font = `${50*scale}px Franklin Gothic`;
                             ctx.fillStyle = '#8cbde1ff';
+
                             var name_value = document.querySelector('.name_input').value;
                             var name_width = ctx.measureText(name_value).width;
+
                             ctx.fillText(document.querySelector('.name_input').value, 10, 48);
 
                             var mana_value = document.querySelector('.mana_input').value;
 
-                            ctx.font = `${45.4184 / cof}px Franklin Gothic`;
+                            ctx.font = `${45.4184/cof*scale}px Franklin Gothic`;
                             ctx.fillStyle = '#aed1eaff';
 
                             var x1 = 439;
                             var y1 = 63;
 
-                            ctx.font = `bold ${fontSize}px Franklin Gothic`;
+                            ctx.font = `bold ${fontSize*scale}px Franklin Gothic`;
 
                             if (mana_value === '2' || mana_value === '3' || mana_value === '9') {
                                 x1 = x1+2;
@@ -140,52 +149,54 @@
 
                             var mana_width = ctx.measureText(mana_value).width;
 
-                            ctx.fillText(mana_value, x1-mana_width/2, y1);
+                            ctx.fillText(mana_value, (x1-mana_width/2)*scale, y1*scale);
 
-                            var x2 = 55;
+                            var x2 = 55*scale;
                             var y2 = 630;
 
                             var attack_value = document.querySelector('.attack_input').value;
                             var attack_width = ctx.measureText(attack_value).width;
 
+                            console.log(attack_width, scale);
+
                             if (attack_value === '2' || attack_value === '3' || attack_value === '9') {
-                                x2 = x2+2;
-                            } else if (attack_value === '8') x2 = x2+1;
+                                x2 += 2*scale;
+                            } else if (attack_value === '8') x2 += 1*scale;
 
-                            if (card_type !== 'spell') ctx.fillText(attack_value, x2-attack_width/2, y2);
+                            if (card_type !== 'spell') ctx.fillText(attack_value, x2-attack_width/2, y2*scale);
 
-                            var x3 = 431;
+                            var x3 = 431*scale;
                             var y3 = 630;
 
                             var health_value = document.querySelector('.hp_input').value;
                             var health_width = ctx.measureText(health_value).width;
 
                             if (health_value === '2' || health_value === '3' || health_value === '9') {
-                                x3 = x3+2;
-                            } else if (health_value === '8') x3 = x3+1;
+                                x3 += 2*scale;
+                            } else if (health_value === '8') x3 += 1*scale;
 
-                            if (card_type !== 'spell') ctx.fillText(health_value, x3-health_width/2, y3);
+                            if (card_type !== 'spell') ctx.fillText(health_value, x3-health_width/2, y3*scale);
 
-                            ctx.font = `40px Franklin Gothic`;
+                            ctx.font = `${40*scale}px Franklin Gothic`;
 
-                            var legend_text = document.querySelector('.legend_text_input').value;
+                            var legend_text = document.querySelector('.legend_text_input').value;   
                             var legend_text_width = ctx.measureText(legend_text).width;
 
                             var x4 = 245;
                             var y4 = 657;
 
-                            ctx.fillText(legend_text, x4-legend_text_width/2, y4);
+                            ctx.fillText(legend_text, (x4-legend_text_width/2)*scale, y4*scale);
 
                             if (legend_text && card_type !== 'spell') {
                                 var x5 = 189;
                                 var y5 = 82;
 
                                 ctx.fillStyle = '#aed1eaff';
-                                ctx.font = `27px Franklin Gothic`;
-                                ctx.fillText('LEGEND', x5, y5);
+                                ctx.font = `${27*scale}px Franklin Gothic`;
+                                ctx.fillText('LEGEND', x5*scale, y5*scale);
                             }
 
-                            if (document.querySelector('.text_textarea').value) drawText();
+                            if (document.querySelector('.text_textarea').value) drawText(scale, ctx, canvas);
                         }
                     }
 
@@ -195,22 +206,22 @@
                             image_background.src = event.target.result;
                             image_background.onload = function () {
                                 image_backgroundLoaded = true;
-                                drawImages();
+                                drawCard(1, canvas, ctx);
                             }
                         }
                         reader.readAsDataURL(e.target.files[0]);  
                     }
 
-                    function drawText() {
+                    function drawText(scale, ctx, canvas) {
                         var mod = 2;
-                        var initialFontSize = 40;
+                        var initialFontSize = 40*scale;
                         var fontSize = initialFontSize;
                         var text = document.querySelector('.text_textarea').value;
-                        var w = 373 * 1.1;
-                        var h = 180 * 1.1;
+                        var w = 373*1.1*scale;
+                        var h = 180*1.1*scale;
 
-                        var x = 240;
-                        var y = 560;
+                        var x = 240*scale;
+                        var y = 560*scale;
 
                         var polygon = [
                             {x: x-w/2, y: y-h/2-20},
@@ -223,8 +234,15 @@
                             {x: x+w/2-60-280-70, y: y+h/2-82+80-82}
                         ]
 
+                        for (var i = 0; i < polygon.length; i++) {
+                            if (scale) {
+                                polygon[i].x = polygon[i].x*scale;
+                                polygon[i].y = polygon[i].y*scale;
+                            }
+                        }
+
                         if (document.querySelector('.legend_text_input').value) {
-                            y -= 10;
+                            y -= 10*scale;
 
                             polygon = [
                                 {x: x-w/2, y: y-h/2-20},
@@ -236,6 +254,13 @@
                                 {x: x+w/2-75-280, y: y+h/2-82+80-82},
                                 {x: x+w/2-60-280-70, y: y+h/2-82+80-82}
                             ]
+
+                            for (var i = 0; i < polygon.length; i++) {
+                                if (scale) {
+                                    polygon[i].x = polygon[i].x*scale;
+                                    polygon[i].y = polygon[i].y*scale;
+                                }
+                            }
                         }
                         
                         var w0 = polygon[1].x-polygon[0].x;
@@ -243,6 +268,7 @@
 
                         var h0 = polygon[2].y-polygon[1].y;
                         var h1 = polygon[4].y-polygon[3].y;
+
                         h0*=0.82;
                         h1*=0.82;
                         w1*=0.96;
@@ -277,8 +303,8 @@
                         ctx.fillStyle = '#aed1eaff';
 
                         lines = fitText(text, w0, w1, h0, h1, fontSize);
-/*
-                        ctx.beginPath();
+
+                        /*ctx.beginPath();
                         ctx.fillStyle = 'black';
                         ctx.moveTo(polygon[0].x, polygon[0].y);
                         ctx.lineTo(polygon[1].x, polygon[1].y);
@@ -288,43 +314,44 @@
                         ctx.lineTo(polygon[5].x, polygon[5].y);
                         ctx.lineTo(polygon[6].x, polygon[6].y);
                         ctx.lineTo(polygon[7].x, polygon[7].y);
-                        ctx.fill();
-*/
+                        ctx.fill();*/
+
                         var n = lines.length;
-                        var spaceHeight = fontSize * 0.1;
-                        var fontHeight = fontSize + spaceHeight;
+                        var spaceHeight = fontSize*0.1*scale;
+                        var fontHeight = fontSize+spaceHeight;
                         var boxHeight = n * fontHeight - spaceHeight;
 
                         var trueX = polygon[0].x;
                         var trueY = polygon[0].y;
 
-                        var nwide=0;
+                        var nwide = 0;
+
                         for (var i = 0; i < lines.length; i++) {
-                            if(lines[i].is_wide)nwide++;
-                        }
-                        var fh = fontHeight*0.92;
-                        var localY = trueY + (h0-nwide*fh)/2 + fh;
-                        var h_top = y - (localY - fh);
-                        var h_bottom = y+ h0 + h1 - (localY - fh + fh*lines.length) - 25;
-                        if(h_bottom<h_top){
-                            localY -= (h_top-h_bottom)/2;
+                            if (lines[i].is_wide) nwide++;
                         }
 
-                        var isBold = false;
+                        var fh = fontHeight*0.92;
+                        var localY = trueY+(h0-nwide*fh)/2+fh;
+                        var h_top = y-(localY-fh);
+                        var h_bottom = y+h0+h1-(localY-fh+fh*lines.length)-25;
+
+                        if (h_bottom < h_top){
+                            localY -= (h_top-h_bottom)/2;
+                        }
 
                         for (var i = 0; i < lines.length; i++) {
                             ctx.fillStyle = '#aed1eaff';
 
                             var parts = lines[i].text.split(/(\[b\]|\[\/b\])/).filter(Boolean);
 
-                            var x = canvas.width / 2 - lines[i].width / 2;
+                            var x = canvas.width/2-lines[i].width/2;
 
-                            var lineY = localY + i * fontHeight;
+                            var lineY = localY+i*fontHeight;
 
-                            if (lines.length === 1) lineY += 15;
-                            if (lines.length === 2) lineY += 15;
-                            if (lines.length === 3) lineY += -5;
-                            if (lines.length === 4) lineY -= 10;
+                            if (lines.length === 1) lineY += 15*scale;
+                            if (lines.length === 2) lineY += 15*scale;
+                            if (lines.length === 3) lineY += -5*scale;
+                            if (lines.length === 4) lineY -= 10*scale;
                             
                             for (var j = 0; j < parts.length; j++) {
                                 if (parts[j] === '[b]') {
@@ -333,6 +360,7 @@
                                     ctx.font = `${fontSize}px Franklin Gothic`;
                                 } else {
                                     ctx.fillText(parts[j], x, lineY);
+                                    console.log(parts[j], x, lineY);
                                     x += ctx.measureText(parts[j]).width;
                                 }
                             }
@@ -367,7 +395,7 @@
                                 var testWidth = testMetrics.width;
                     
                                 if (testWidth > w || crret) {
-                                    var metricsLine = line.replace(/\[b\]|\[\/b\]/g, ''); // Ignore [b] and [/b] tags for measuring text
+                                    var metricsLine = line.replace(/\[b\]|\[\/b\]/g, '');
                                     var lineMetrics = ctx.measureText(metricsLine);
                                     var lineWidth = lineMetrics.width;
                     
@@ -387,7 +415,7 @@
                                 } else line = testLine;
                             }
                     
-                            var metricsLine = line.replace(/\[b\]|\[\/b\]/g, ''); // Ignore [b] and [/b] tags for measuring text
+                            var metricsLine = line.replace(/\[b\]|\[\/b\]/g, '');
                             var lineMetrics = ctx.measureText(metricsLine);
                             var lineWidth = lineMetrics.width;
                     
@@ -421,65 +449,69 @@
 
                     image_background.onload = function () {
                         image_backgroundLoaded = true;
-                        drawImages(1, 0, 0);
+                        drawCard(1, canvas, ctx);
                     }
 
                     image_frame.onload = function () {
                         image_frameLoaded = true;
-                        drawImages(1, 0, 0);
+                        drawCard(1, canvas, ctx);
                     }
 
                     document.querySelector('.name_input').addEventListener('input', () => {
-                        drawImages();
+                        drawCard(1, canvas, ctx);
                     });
 
                     document.querySelector('.mana_input').addEventListener('input', () => {
                         var value = document.querySelector('.mana_input').value;
                         if (value.length > 2) document.querySelector('.mana_input').value = value.slice(0, 2);
-                        drawImages();
+                        drawCard(1, canvas, ctx);
                     });
 
                     document.querySelector('.attack_input').addEventListener('input', () => {
                         var value = document.querySelector('.attack_input').value;
                         if (value.length > 2) document.querySelector('.attack_input').value = value.slice(0, 2);
-                        drawImages();
+                        drawCard(1, canvas, ctx);
                     });
 
                     document.querySelector('.hp_input').addEventListener('input', () => {
                         var value = document.querySelector('.hp_input').value;
                         if (value.length > 2) document.querySelector('.hp_input').value = value.slice(0, 2);
-                        drawImages();
+                        drawCard(1, canvas, ctx);
                     });
 
                     document.querySelector('.create_button').addEventListener('click', () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        drawCard(2, canvas, ctx);
+
                         var link = document.createElement('a');
                         var name_value = document.querySelector('.name_input').value;
                         if (name_value) {
                             link.download = `${encodeURIComponent(name_value)}.png`;
                         } else link.download = `card.png`;
-                        link.download = 'image.png';
                         link.href = canvas.toDataURL();
                         link.click();
-                    })
+                    });
 
                     document.querySelector('.legend_text_input').addEventListener('input', () => {
                         if (document.querySelector('.legend_text_input').value) {
                             image_frame.src = './images/card-legend.svg';
                             image_frame.onload = function () {
                                 image_frameLoaded = true;
-                                drawImages();
+                                drawCard(1, canvas, ctx);
                             }
                         } else {
                             image_frame.src = './images/card.svg';
                             image_frame.onload = function () {
                                 image_frameLoaded = true;
-                                drawImages();
+                                drawCard(1, canvas, ctx);
                             }
                         }
                     });
 
                     document.querySelector('.text_textarea').addEventListener('input', () => {
-                        drawImages();
+                        drawCard(1, canvas, ctx);
                     });
 
                     var lastX;
@@ -524,8 +556,8 @@
                             mouseX = maxX;
                         }
 
-                        const positionInPixels = mouseX - lineRect.left;
-                        var positionInPercent = (positionInPixels / (lineRect.width - circle.offsetWidth)) * 100;
+                        const positionInPixels = mouseX-lineRect.left;
+                        var positionInPercent = (positionInPixels/(lineRect.width-circle.offsetWidth)) * 100;
 
                         if (positionInPercent < 10) {
                             positionInPercent = 10;
@@ -533,12 +565,12 @@
                             positionInPercent = 90;
                         }
 
-                        const coefficient = 1 + ((positionInPercent - 10) / (90 - 10)) * 2;
+                        const coefficient = 1+((positionInPercent-10)/(90-10))*2;
                         circle.style.left = positionInPercent + "%";
 
-                        scale = coefficient;
+                        background_scale = coefficient;
 
-                        drawImages();
+                        drawCard(1, canvas, ctx);
                     });
 
                     var isDragging = false;
@@ -547,7 +579,10 @@
                     canvas.addEventListener('mousedown', (e) => {
                         if (e.button === 0) {
                             isDragging = true;
-                            lastMousePos = { x: e.clientX, y: e.clientY };
+                            lastMousePos = {
+                                x: e.clientX, 
+                                y: e.clientY
+                            };
                         }
                     });
 
@@ -557,10 +592,10 @@
                             var dx = e.clientX - lastMousePos.x;
                             var dy = e.clientY - lastMousePos.y;
 
-                            x += dx / scale;
-                            y += dy / scale;
+                            x += dx/background_scale;
+                            y += dy/background_scale;
 
-                            drawImages(scale);
+                            drawCard(1, canvas, ctx);
 
                             lastMousePos = { x: e.clientX, y: e.clientY };
                         }
@@ -610,13 +645,13 @@
                                         image_frame.src = './images/card-legend.svg';
                                         image_frame.onload = function () {
                                             image_frameLoaded = true;
-                                            drawImages();
+                                            drawCard(1, canvas, ctx);
                                         }
                                     } else {
                                         image_frame.src = './images/card.svg';
                                         image_frame.onload = function () {
                                             image_frameLoaded = true;
-                                            drawImages();
+                                            drawCard(1, canvas, ctx);
                                         }
                                     }
                                 },
@@ -630,7 +665,7 @@
                                     image_frame.src = './images/card-spell.svg';
                                     image_frame.onload = function () {
                                         image_frameLoaded = true;
-                                        drawImages();
+                                        drawCard(1, canvas, ctx);
                                     }
                                 }
                             }
