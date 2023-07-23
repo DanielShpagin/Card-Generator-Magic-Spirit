@@ -131,7 +131,7 @@
                             var name_value = document.querySelector('.name_input').value;
                             var name_width = ctx.measureText(name_value).width;
 
-                            ctx.fillText(document.querySelector('.name_input').value, 10, 48);
+                            ctx.fillText(document.querySelector('.name_input').value, 10*scale, 48*scale);
 
                             var mana_value = document.querySelector('.mana_input').value;
 
