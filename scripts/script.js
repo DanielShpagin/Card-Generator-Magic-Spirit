@@ -182,10 +182,10 @@
                             var legend_text = document.querySelector('.legend_text_input').value;   
                             var legend_text_width = ctx.measureText(legend_text).width;
 
-                            var x4 = 245;
+                            var x4 = 245*scale;
                             var y4 = 657;
 
-                            ctx.fillText(legend_text, (x4-legend_text_width/2)*scale, y4*scale);
+                            ctx.fillText(legend_text, x4-legend_text_width/2, y4*scale);
 
                             if (legend_text && card_type !== 'spell') {
                                 var x5 = 189;
