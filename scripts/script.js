@@ -224,43 +224,29 @@
                         var y = 560*scale;
 
                         var polygon = [
-                            {x: x-w/2, y: y-h/2-20},
-                            {x: x+w/2, y: y-h/2-20},
-                            {x: x+w/2, y: y+h/2-82},
-                            {x: x+w/2-45, y: y+h/2-82},
-                            {x: x+w/2-45, y: y+h/2-82+80},
-                            {x: x+w/2-75-280, y: y+h/2-82+80},
-                            {x: x+w/2-75-280, y: y+h/2-82+80-82},
-                            {x: x+w/2-60-280-70, y: y+h/2-82+80-82}
+                            {x: x-w/2, y: y-h/2-20*scale},
+                            {x: x+w/2, y: y-h/2-20*scale},
+                            {x: x+w/2, y: y+h/2-82*scale},
+                            {x: x+w/2-45*scale, y: y+h/2-82*scale},
+                            {x: x+w/2-45*scale, y: y+h/2-82+80*scale},
+                            {x: x+w/2-75*scale-280*scale, y: y+h/2-2*scale},
+                            {x: x+w/2-75*scale-280*scale, y: y+h/2-84*scale},
+                            {x: x+w/2-410*scale, y: y+h/2-84*scale}
                         ]
-
-                        for (var i = 0; i < polygon.length; i++) {
-                            if (scale) {
-                                polygon[i].x = polygon[i].x*scale;
-                                polygon[i].y = polygon[i].y*scale;
-                            }
-                        }
 
                         if (document.querySelector('.legend_text_input').value) {
                             y -= 10*scale;
 
                             polygon = [
-                                {x: x-w/2, y: y-h/2-20},
-                                {x: x+w/2, y: y-h/2-20},
-                                {x: x+w/2, y: y+h/2-82},
-                                {x: x+w/2-45, y: y+h/2-82},
-                                {x: x+w/2-45, y: y+h/2-125+80},
-                                {x: x+w/2-75-280, y: y+h/2-125+80},
-                                {x: x+w/2-75-280, y: y+h/2-82+80-82},
-                                {x: x+w/2-60-280-70, y: y+h/2-82+80-82}
+                                {x: x-w/2, y: y-h/2-20*scale},
+                                {x: x+w/2, y: y-h/2-20*scale},
+                                {x: x+w/2, y: y+h/2-82*scale},
+                                {x: x+w/2-45*scale, y: y+h/2-82*scale},
+                                {x: x+w/2-45*scale, y: y+h/2-45*scale},
+                                {x: x+w/2-335*scale, y: y+h/2-45*scale},
+                                {x: x+w/2-335*scale, y: y+h/2-84*scale},
+                                {x: x+w/2-410*scale, y: y+h/2-84*scale}
                             ]
-
-                            for (var i = 0; i < polygon.length; i++) {
-                                if (scale) {
-                                    polygon[i].x = polygon[i].x*scale;
-                                    polygon[i].y = polygon[i].y*scale;
-                                }
-                            }
                         }
                         
                         var w0 = polygon[1].x-polygon[0].x;
@@ -317,7 +303,7 @@
                         ctx.fill();*/
 
                         var n = lines.length;
-                        var spaceHeight = fontSize*0.1*scale;
+                        var spaceHeight = fontSize*0.1;
                         var fontHeight = fontSize+spaceHeight;
                         var boxHeight = n * fontHeight - spaceHeight;
 
@@ -333,7 +319,7 @@
                         var fh = fontHeight*0.92;
                         var localY = trueY+(h0-nwide*fh)/2+fh;
                         var h_top = y-(localY-fh);
-                        var h_bottom = y+h0+h1-(localY-fh+fh*lines.length)-25;
+                        var h_bottom = y+h0+h1-(localY-fh+fh*lines.length)-25*scale;
 
                         if (h_bottom < h_top){
                             localY -= (h_top-h_bottom)/2;
@@ -360,7 +346,7 @@
                                     ctx.font = `${fontSize}px Franklin Gothic`;
                                 } else {
                                     ctx.fillText(parts[j], x, lineY);
-                                    console.log(parts[j], x, lineY);
+                                    console.log(parts[j], x, lineY, canvas);
                                     x += ctx.measureText(parts[j]).width;
                                 }
                             }
