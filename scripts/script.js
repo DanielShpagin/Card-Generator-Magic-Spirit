@@ -144,8 +144,8 @@
                             ctx.font = `bold ${fontSize*scale}px Franklin Gothic`;
 
                             if (mana_value === '2' || mana_value === '3' || mana_value === '9') {
-                                x1 += 2*scale;
-                            } else if (mana_value === '8') x1 += 1*scale;
+                                x1 += 2;
+                            } else if (mana_value === '8') x1 += 1;
 
                             var mana_width = ctx.measureText(mana_value).width;
 
