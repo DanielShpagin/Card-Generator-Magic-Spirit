@@ -469,7 +469,17 @@
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
 
-                        drawCard(2, canvas, ctx);
+                        var scale = 1;
+
+                        if (image_background.height*image_background.width > image_frame.height*image_frame.width) {
+                            scale = (image_background.height*image_background.width)/(image_frame.height*image_frame.width);
+                        } else {
+                            scale = (image_frame.height*image_frame.width)/(image_background.height*image_background.width);
+                        }
+
+                        drawCard(scale, canvas, ctx);
+
+                        console.log(scale);
 
                         var link = document.createElement('a');
                         var name_value = document.querySelector('.name_input').value;
