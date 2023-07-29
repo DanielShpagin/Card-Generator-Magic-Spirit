@@ -545,6 +545,29 @@ textarea {
     display: flex;
 }
 
+/* color_select */
+
+.color_select {
+    margin-bottom: 10px;
+    padding: 2px;
+
+    text-align: center;
+
+    background-color: #191621;
+    color: white;
+
+    border: 3px solid #4b5662;
+    border-radius: 5px;
+
+    font-family: 'Belwe', serif;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.color_select option {
+    text-align: center;
+}
+
 /* manaitem */
 
 .manaitem {
@@ -570,142 +593,6 @@ textarea {
 
     cursor: pointer;
 }
-
-/*.manaitem_dropdown {
-    position: relative;
-    display: inline-block;
-    height: auto;
-}
-
-.manaitem_dropdown_content {
-    margin-top: -1.5px;
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    width: 76px;
-
-    border: 2px solid #4b5662;
-    border-bottom: none;
-    border-radius: 3px;
-}
-
-.manaitem_dropdown_content a {
-    background-color: #191621;
-    color: white;
-
-    border-bottom: 2px solid #4b5662;
-
-    font-size: 15px;
-    font-family: "Belwe";
-
-    width: 76px;
-    height: 30px;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.manaitem_dropdown_content a img {
-    width: 20px;
-    height: 20px;
-}
-
-.manaitem_dropdown:hover .manaitem_dropdown_content {
-    display: flex;
-}
-
-.manaitem_dropdown_btn {
-    background-color: #191621;
-    color: white;
-
-    border: 2px solid #4b5662;
-    border-radius: 3px;
-
-    font-size: 15px;
-    font-family: "Belwe";
-
-    width: 76px;
-    height: 26px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.manaitem_dropdown_btn img {
-    width: 20px;
-    height: 20px;
-}
-
-.plusbutton {
-    margin-left: 5px;
-
-    background-color: #191621;
-    color: white;
-
-    border: 2px solid #4b5662;
-    border-radius: 3px;
-
-    font-family: 'Belwe', serif;
-    font-size: 20px;
-
-    cursor: pointer;
-
-    height: 26px;
-    width: 26px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}*/
-
-/*.manaitem_select {
-    background-color: #191621;
-    color: white;
-
-    border: 2px solid #4b5662;
-    border-radius: 3px;
-
-    font-size: 15px;
-    font-family: "Belwe";
-
-    margin: 0px;
-    margin-top: 0;
-
-    width: 80px;
-    height: 30px;
-
-    text-align: center;
-}
-
-.manaitem_select option {
-    background-repeat: no-repeat;
-    background-position: left center;
-    padding-left: 20px;
-}
-
-.plusbutton {
-    margin-left: 5px;
-
-    background-color: #191621;
-    color: white;
-
-    border: 2px solid #4b5662;
-    border-radius: 3px;
-
-    font-family: 'Belwe', serif;
-    font-size: 20px;
-
-    cursor: pointer;
-
-    height: 30px;
-    width: 30px;
-}*/
 
 /* stat6 */
 

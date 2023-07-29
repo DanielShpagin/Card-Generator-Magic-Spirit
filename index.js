@@ -101,6 +101,17 @@ app.post('/generate-image', async (req, res) => {
     }
 });
 
+app.post('/get_card_colors', (req, res) => {
+    var card_colors = fs.readdirSync(`./images/card_colors`, 'utf-8');
+    var sendCardColors = [];
+
+    card_colors.forEach(dir => {
+        sendCardColors.push(dir);
+    });
+
+    res.send(JSON.stringify(sendCardColors));
+});
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
