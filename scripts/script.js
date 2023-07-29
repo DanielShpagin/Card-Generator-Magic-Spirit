@@ -302,6 +302,8 @@
             if (lines.length === 3) lineY += -5 * scale;
             if (lines.length === 4) lineY -= 10 * scale;
 
+            if (card_type === 'spell') lineY -= 1 * scale;
+
             for (var j = 0; j < parts.length; j++) {
                 if (parts[j] === '[b]') {
                     ctx.font = `bold ${fontSize}px Franklin Gothic`;
