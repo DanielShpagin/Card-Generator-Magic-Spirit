@@ -191,7 +191,7 @@
             { x: x + w / 2, y: y - h / 2 - 20 * scale },
             { x: x + w / 2, y: y + h / 2 - 82 * scale },
             { x: x + w / 2 - 45 * scale, y: y + h / 2 - 82 * scale },
-            { x: x + w / 2 - 45 * scale, y: y + h / 2 - 82 + 80 * scale },
+            { x: x + w / 2 - 45 * scale, y: y + h / 2 - 2 * scale },
             { x: x + w / 2 - 75 * scale - 280 * scale, y: y + h / 2 - 2 * scale },
             { x: x + w / 2 - 75 * scale - 280 * scale, y: y + h / 2 - 84 * scale },
             { x: x + w / 2 - 410 * scale, y: y + h / 2 - 84 * scale }
@@ -209,6 +209,19 @@
                 { x: x + w / 2 - 335 * scale, y: y + h / 2 - 45 * scale },
                 { x: x + w / 2 - 335 * scale, y: y + h / 2 - 84 * scale },
                 { x: x + w / 2 - 410 * scale, y: y + h / 2 - 84 * scale }
+            ]
+        }
+        
+        if (card_type === 'spell') {
+            polygon = [
+                { x: x - w / 2, y: y - h / 2 - 20 * scale },
+                { x: x + w / 2, y: y - h / 2 - 20 * scale },
+                { x: x + w / 2, y: y + h / 2 - 82 * scale },
+                { x: x + w / 2, y: y + h / 2 - 82 * scale },
+                { x: x + w / 2, y: y + h / 2 - 20 * scale },
+                { x: x - w / 2, y: y + h / 2 - 20 * scale },
+                { x: x - w / 2, y: y + h / 2 - 84 * scale },
+                { x: x - w / 2, y: y + h / 2 - 84 * scale }
             ]
         }
 
@@ -253,7 +266,7 @@
 
         lines = fitText(text, w0, w1, h0, h1, fontSize);
 
-        /*ctx.beginPath();
+        ctx.beginPath();
         ctx.fillStyle = 'black';
         ctx.moveTo(polygon[0].x, polygon[0].y);
         ctx.lineTo(polygon[1].x, polygon[1].y);
@@ -263,7 +276,7 @@
         ctx.lineTo(polygon[5].x, polygon[5].y);
         ctx.lineTo(polygon[6].x, polygon[6].y);
         ctx.lineTo(polygon[7].x, polygon[7].y);
-        ctx.fill();*/
+        ctx.fill();
 
         var n = lines.length;
         var spaceHeight = fontSize * 0.1;
@@ -297,12 +310,12 @@
 
             var lineY = localY + i * fontHeight;
 
-            if (lines.length === 1) lineY += 15 * scale;
+            if (lines.length === 1) lineY += 25 * scale;
             if (lines.length === 2) lineY += 15 * scale;
             if (lines.length === 3) lineY += -5 * scale;
             if (lines.length === 4) lineY -= 10 * scale;
 
-            if (card_type === 'spell') lineY += 1 * scale;
+            if (card_type === 'spell') lineY += 3 * scale;
 
             for (var j = 0; j < parts.length; j++) {
                 if (parts[j] === '[b]') {
