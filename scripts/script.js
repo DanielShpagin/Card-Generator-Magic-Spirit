@@ -72,8 +72,8 @@
             imageWidth = newWidth;
             imageHeight = newHeight;
 
-            var imageX = (canvas.width - imageWidth * background_scale) / 2 + x * background_scale;
-            var imageY = (canvas.height - imageHeight * background_scale) / 2 + y * background_scale;
+            var imageX = (canvas.width - imageWidth * background_scale) / 2 + x * scale * background_scale;
+            var imageY = (canvas.height - imageHeight * background_scale) / 2 + y * scale * background_scale;
 
             if (imageX > 0) imageX = 0;
             if (imageY > 0) imageY = 0;
