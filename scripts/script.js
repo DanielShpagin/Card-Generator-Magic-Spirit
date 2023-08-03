@@ -28,8 +28,12 @@
     var cof = 0.75;
 
     function getTextColor() {
+        ctx.shadowColor = "rgba(0, 0, 0, 0.3)"; // black color with 10% opacity
+        ctx.shadowBlur = 30; // blur level
+        ctx.shadowOffsetX = 0; // horizontal offset of shadow
+        ctx.shadowOffsetY = 0; // vertical offset of shadow
         if (card_color === 'Blue') return '#aed1eaff';
-        if (card_color === 'Green') return '#adf7b5ff';
+        if (card_color === 'Green') return '#bff0bcff'//'#c5f0bcff'//'#c9f0bcff';
     }
 
     console.log(getTextColor());
