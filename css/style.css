@@ -622,6 +622,49 @@ textarea {
     font-family: 'Belwe', serif;
 }
 
+.create_json_button {
+    width: 150px;
+    height: 30px;
+
+    background-color: #191621;
+    color: white;
+
+    border: 2px solid #4b5662;
+
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    cursor: pointer;
+    font-family: 'Belwe', serif;
+}
+
+.upload_json_button {
+    display: none;
+}
+
+.custom_upload_json_button {
+    display: inline-block;
+
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+
+    text-align: center;
+    font-family: "Belwe";
+
+    border: 2px solid #4b5662;
+    border-radius: 5px;
+
+    background-color: #191621;
+    color: white;
+
+    cursor: pointer;
+}
+
 .file {
     display: none;
 }

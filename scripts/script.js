@@ -17,6 +17,9 @@
     const imageLoader = document.querySelector('#file');
     imageLoader.addEventListener('change', handleImage, false);
 
+    const uploadJSONButton = document.querySelector('#upload_json_button');
+    uploadJSONButton.addEventListener('change', uploadJSON, false);
+
     var x = 0;
     var y = 0;
 
@@ -168,6 +171,7 @@
     }
 
     function handleImage(e) {
+        console.log(e);
         var reader = new FileReader();
         reader.onload = function (event) {
             image_background.src = event.target.result;
@@ -177,6 +181,102 @@
             }
         }
         reader.readAsDataURL(e.target.files[0]);
+    }
+
+    function uploadJSON(e) {
+        var file = e.target.files[0];
+
+        if (!file) return;
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var contents = e.target.result;
+            var data = JSON.parse(contents);
+            console.log(data);
+
+            var hp = data.hp;
+            var attack = data.attack;
+            var description = data.description;
+            var mana = data.mana;
+            var name = data.name;
+
+            var card_color = data.card_color;
+            var type = data.card_type;
+
+            var image = data.image;
+            var src = image.src;
+            var imageX = image.x;
+            var imageY = image.y;
+            var width = image.width;
+            var height = image.height;
+            var scale = image.scale;
+
+            var legend_text = data.legend_text;
+
+            if (type === 'creature' || type === 'legend') {
+                document.querySelector('.attack_input').disabled = false;
+                document.querySelector('.hp_input').disabled = false;
+                document.querySelector('.legend_text_input').disabled = false;
+                document.querySelector('.legend_text_input').value = '';
+
+                card_type = 'creature';
+
+                if (type === 'legend') {
+                    card_type = 'legend';
+                    image_frame.src = `./images/card_colors/${card_color}/card-legend.svg`;
+                    image_frame.onload = function () {
+                        image_frameLoaded = true;
+                        drawCard(1, canvas, ctx);
+                    }
+                } else {
+                    card_type = 'creature';
+                    image_frame.src = `./images/card_colors/${card_color}/card-creature.svg`;
+                    image_frame.onload = function () {
+                        image_frameLoaded = true;
+                        drawCard(1, canvas, ctx);
+                    }
+                }
+            }
+
+            if (type === 'spell') {
+                document.querySelector('.attack_input').disabled = true;
+                document.querySelector('.hp_input').disabled = true;
+                document.querySelector('.legend_text_input').disabled = true;
+                document.querySelector('.legend_text_input').value = '';
+
+                card_type = 'spell';
+
+                image_frame.src = `./images/card_colors/${card_color}/card-spell.svg`;
+                image_frame.onload = function () {
+                    image_frameLoaded = true;
+                    drawCard(1, canvas, ctx);
+                }
+            }
+
+            document.querySelector('.hp_input').value = hp;
+            document.querySelector('.attack_input').value = attack;
+            document.querySelector('.text_textarea').value = description;
+            document.querySelector('.mana_input').value = mana;
+            document.querySelector('.name_input').value = name;
+
+            if (type === 'legend') document.querySelector('.legend_text_input').value = legend_text;
+
+            background_scale = scale;
+            image_background.src = src;
+            image_background.onload = function () {
+                image_background.width = width;
+                image_background.height = height;
+
+                x = imageX;
+                y = imageY;
+
+                image_backgroundLoaded = true;
+
+                drawCard(1, canvas, ctx);
+            }
+        }
+
+        reader.readAsText(file);
     }
 
     function drawText(scale, ctx, canvas) {
@@ -215,7 +315,7 @@
                 { x: x + w / 2 - 410 * scale, y: y + h / 2 - 84 * scale }
             ]
         }
-        
+
         if (card_type === 'spell') {
             polygon = [
                 { x: x - w / 2, y: y - h / 2 - 20 * scale },
@@ -476,7 +576,63 @@
         link.click();
     });
 
+    document.querySelector('.create_json_button').addEventListener('click', () => {
+        var newWidth = image_background.width;
+        var newHeight = image_background.height;
+
+        const scaledWidth = newWidth * background_scale;
+        const scaledHeight = newHeight * background_scale;
+
+        imageWidth = newWidth;
+        imageHeight = newHeight;
+
+        var imageX = (canvas.width - imageWidth * background_scale) / 2 + x * background_scale;
+        var imageY = (canvas.height - imageHeight * background_scale) / 2 + y * background_scale;
+
+        var card_color = document.querySelector('.color_select').value;
+
+        var data = {
+            name: document.querySelector('.name_input').value,
+            mana: document.querySelector('.mana_input').value,
+            attack: document.querySelector('.attack_input').value,
+            hp: document.querySelector('.hp_input').value,
+            description: document.querySelector('.text_textarea').value,
+            card_type: card_type,
+            card_color: card_color,
+            image: {
+                src: image_background.src,
+                x: x,
+                y: y,
+                width: scaledWidth,
+                height: scaledHeight, 
+                scale: background_scale
+            }
+        }
+
+        if (!card_color) data.card_color = 'Blue';
+        if (card_type === 'legend') data.legend_text = document.querySelector('.legend_text_input').value;
+        if (card_type === 'spell') {
+            delete data.attack;
+            delete data.hp;
+        }
+
+        console.log(image_background.src);
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+
+        if (data.name) {
+            downloadAnchorNode.setAttribute("download", `${data.name}.json`);
+        } else downloadAnchorNode.setAttribute("download", `card.json`);
+
+        downloadAnchorNode.setAttribute("download", `${data.name}.json`);
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    });
+
     document.querySelector('.legend_text_input').addEventListener('input', () => {
+        card_type = 'legend';
         if (document.querySelector('.legend_text_input').value) {
             image_frame.src = `./images/card_colors/${card_color}/card-legend.svg`;
             image_frame.onload = function () {
@@ -649,10 +805,12 @@
                     document.querySelector('.attack_input').disabled = false;
                     document.querySelector('.hp_input').disabled = false;
                     document.querySelector('.legend_text_input').disabled = false;
+                    document.querySelector('.legend_text_input').value = '';
 
                     card_type = 'creature';
 
                     if (document.querySelector('.legend_text_input').value) {
+                        card_type = 'legend';
                         image_frame.src = `./images/card_colors/${card_color}/card-legend.svg`;
                         image_frame.onload = function () {
                             image_frameLoaded = true;
@@ -670,6 +828,7 @@
                     document.querySelector('.attack_input').disabled = true;
                     document.querySelector('.hp_input').disabled = true;
                     document.querySelector('.legend_text_input').disabled = true;
+                    document.querySelector('.legend_text_input').value = '';
 
                     card_type = 'spell';
 
