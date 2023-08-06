@@ -49,8 +49,10 @@
             canvas.style.height = `${image_frame.height * cof * scale}px`;
             ctx.imageSmoothingEnabled = false;
 
-            canvas.style.width = `${image_frame.width * cof}px`;
-            canvas.style.height = `${image_frame.height * cof}px`;
+            if (!(image_frame.width && image_frame.height)) return;
+
+            canvas.style.width = `${image_frame.width * cof * scale}px`;
+            canvas.style.height = `${image_frame.height * cof * scale}px`;
 
             ctx.imageSmoothingQuality = 'high';
 
@@ -74,8 +76,8 @@
             imageHeight *= background_scale;
 
             if (!imageX && !imageY) {
-                imageX = (canvas.width - imageWidth) / 2;
-                imageY = (canvas.height - imageHeight) / 2;
+                imageX = (canvas.width - imageWidth) / 2 * scale;
+                imageY = (canvas.height - imageHeight) / 2 * scale;
 
                 /*x = (imageX - (canvas.width - imageWidth * background_scale) / 2) / background_scale;
                 y = (imageY - (canvas.height - imageHeight * background_scale) / 2) / background_scale;
@@ -90,7 +92,9 @@
             if (imageX + imageWidth < canvas.width) imageX = canvas.width - imageWidth;
             if (imageY + imageHeight < canvas.height) imageY = canvas.height - imageHeight;
 
-            ctx.drawImage(image_background, imageX, imageY, imageWidth, imageHeight);
+            console.log(imageX, imageY);
+
+            ctx.drawImage(image_background, imageX*scale, imageY*scale, imageWidth, imageHeight);
 
             drawDesription(scale, ctx, canvas);
         }
@@ -270,9 +274,11 @@
                 imageX = x;
                 imageY = y;
 
+                console.log(imageX, imageY, background_scale);
+
                 image_backgroundLoaded = true;
 
-                drawCard(1, canvas, ctx, imageX, imageY);
+                drawCard(1, canvas, ctx);
             }
         }
 
@@ -597,6 +603,8 @@
                 scale: background_scale
             }
         }
+
+        console.log(imageX, imageY, background_scale);
 
         if (!card_color) data.card_color = 'Blue';
         if (card_type === 'legend') data.legend_text = document.querySelector('.legend_text_input').value;
