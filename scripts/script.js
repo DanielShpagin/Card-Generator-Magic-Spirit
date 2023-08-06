@@ -20,11 +20,8 @@
     const uploadJSONButton = document.querySelector('#upload_json_button');
     uploadJSONButton.addEventListener('change', uploadJSON, false);
 
-    var x = 0;
-    var y = 0;
-
-    var imageWidth = 0;
-    var imageHeight = 0;
+    var imageX;
+    var imageY;
 
     var background_scale = 1;
 
@@ -62,39 +59,44 @@
 
             const aspectRatio = image_background.width / image_background.height;
 
-            var newWidth = image_background.width * scale;
-            var newHeight = image_background.height * scale;
+            var imageWidth = image_background.width * scale * background_scale;
+            var imageHeight = image_background.height * scale * background_scale;
 
             if (image_background.width / image_background.height > image_frame.width / image_frame.height) {
-                newHeight = canvas.height;
-                newWidth = newHeight * aspectRatio;
+                imageHeight = canvas.height;
+                imageWidth = imageHeight * aspectRatio;
             } else {
-                newWidth = canvas.width;
-                newHeight = newWidth / aspectRatio;
+                imageWidth = canvas.width;
+                imageHeight = imageWidth / aspectRatio;
             }
 
-            const scaledWidth = newWidth * background_scale;
-            const scaledHeight = newHeight * background_scale;
+            if (!imageX && !imageY) {
+                imageX = (canvas.width - imageWidth * background_scale) / 2;
+                imageY = (canvas.height - imageHeight * background_scale) / 2;
 
-            imageWidth = newWidth;
-            imageHeight = newHeight;
+                /*x = (imageX - (canvas.width - imageWidth * background_scale) / 2) / background_scale;
+                y = (imageY - (canvas.height - imageHeight * background_scale) / 2) / background_scale;
+    
+                ctx.imageSmoothingQuality = 'high';
+    
+                console.log(imageX, imageY);*/
+            }
 
-            var imageX = (canvas.width - imageWidth * background_scale) / 2 + x * scale * background_scale;
-            var imageY = (canvas.height - imageHeight * background_scale) / 2 + y * scale * background_scale;
+            console.log(imageX, imageY);
 
             if (imageX > 0) imageX = 0;
             if (imageY > 0) imageY = 0;
-            if (imageX + scaledWidth < canvas.width) imageX = canvas.width - scaledWidth;
-            if (imageY + scaledHeight < canvas.height) imageY = canvas.height - scaledHeight;
+            if (imageX + imageWidth < canvas.width) imageX = canvas.width - imageWidth;
+            if (imageY + imageHeight < canvas.height) imageY = canvas.height - imageHeight;
 
-            x = (imageX - (canvas.width - imageWidth * background_scale) / 2) / background_scale;
-            y = (imageY - (canvas.height - imageHeight * background_scale) / 2) / background_scale;
+            ctx.drawImage(image_background, imageX, imageY, imageWidth, imageHeight);
 
-            ctx.imageSmoothingQuality = 'high';
+            drawDesription(scale, ctx, canvas);
+        }
+    }
 
-            ctx.drawImage(image_background, imageX, imageY, scaledWidth, scaledHeight);
-
-            var fontSize = 60;
+    function drawDesription(scale, ctx, canvas) {
+        var fontSize = 60;
 
             ctx.globalCompositeOperation = 'source-over';
             ctx.font = `${50 * scale}px Franklin Gothic`;
@@ -167,7 +169,6 @@
             }
 
             if (document.querySelector('.text_textarea').value) drawText(scale, ctx, canvas);
-        }
     }
 
     function handleImage(e) {
@@ -205,8 +206,8 @@
 
             var image = data.image;
             var src = image.src;
-            var imageX = image.x;
-            var imageY = image.y;
+            var x = image.x;
+            var y = image.y;
             var width = image.width;
             var height = image.height;
             var scale = image.scale;
@@ -267,12 +268,14 @@
                 image_background.width = width;
                 image_background.height = height;
 
-                x = imageX;
-                y = imageY;
+                imageX = x;
+                imageY = y;
+
+                console.log(imageX, imageY);
 
                 image_backgroundLoaded = true;
 
-                drawCard(1, canvas, ctx);
+                drawCard(1, canvas, ctx, imageX, imageY);
             }
         }
 
@@ -398,8 +401,8 @@
 
         var fh = fontHeight * 0.92;
         var localY = trueY + (h0 - nwide * fh) / 2 + fh;
-        var h_top = y - (localY - fh);
-        var h_bottom = y + h0 + h1 - (localY - fh + fh * lines.length) - 25 * scale;
+        var h_top = imageY - (localY - fh);
+        var h_bottom = imageY + h0 + h1 - (localY - fh + fh * lines.length) - 25 * scale;
 
         if (h_bottom < h_top) {
             localY -= (h_top - h_bottom) / 2;
@@ -577,17 +580,8 @@
     });
 
     document.querySelector('.create_json_button').addEventListener('click', () => {
-        var newWidth = image_background.width;
-        var newHeight = image_background.height;
-
-        const scaledWidth = newWidth * background_scale;
-        const scaledHeight = newHeight * background_scale;
-
-        imageWidth = newWidth;
-        imageHeight = newHeight;
-
-        var imageX = (canvas.width - imageWidth * background_scale) / 2 + x * background_scale;
-        var imageY = (canvas.height - imageHeight * background_scale) / 2 + y * background_scale;
+        var width = image_background.width*background_scale;
+        var height = image_background.height*background_scale;
 
         var card_color = document.querySelector('.color_select').value;
 
@@ -601,13 +595,15 @@
             card_color: card_color,
             image: {
                 src: image_background.src,
-                x: x,
-                y: y,
-                width: scaledWidth,
-                height: scaledHeight, 
+                x: imageX,
+                y: imageY,
+                width: width,
+                height: height,
                 scale: background_scale
             }
         }
+
+        console.log(imageX, imageY);
 
         if (!card_color) data.card_color = 'Blue';
         if (card_type === 'legend') data.legend_text = document.querySelector('.legend_text_input').value;
@@ -616,7 +612,6 @@
             delete data.hp;
         }
 
-        console.log(image_background.src);
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href", dataStr);
@@ -652,19 +647,6 @@
         drawCard(1, canvas, ctx);
     });
 
-    var lastX;
-    var lastY;
-    var offsetX = 0;
-    var offsetY = 0;
-
-    function calculateCoefficient(offsetLeft) {
-        const range = 190 - 10;
-        const progress = (offsetLeft - 10) / range;
-        const coefficient = 1 + progress;
-        return coefficient;
-    }
-
-    const container = document.querySelector('.line-container');
     const line = document.querySelector('.line');
     const circle = document.querySelector('.circle');
 
@@ -730,8 +712,8 @@
             var dx = e.clientX - lastMousePos.x;
             var dy = e.clientY - lastMousePos.y;
 
-            x += dx / background_scale;
-            y += dy / background_scale;
+            imageX += dx / background_scale;
+            imageY += dy / background_scale;
 
             drawCard(1, canvas, ctx);
 
