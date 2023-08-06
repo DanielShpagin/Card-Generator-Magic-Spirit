@@ -59,8 +59,8 @@
 
             const aspectRatio = image_background.width / image_background.height;
 
-            var imageWidth = image_background.width * scale * background_scale;
-            var imageHeight = image_background.height * scale * background_scale;
+            var imageWidth = image_background.width * scale;
+            var imageHeight = image_background.height * scale;
 
             if (image_background.width / image_background.height > image_frame.width / image_frame.height) {
                 imageHeight = canvas.height;
@@ -70,9 +70,12 @@
                 imageHeight = imageWidth / aspectRatio;
             }
 
+            imageWidth *= background_scale;
+            imageHeight *= background_scale;
+
             if (!imageX && !imageY) {
-                imageX = (canvas.width - imageWidth * background_scale) / 2;
-                imageY = (canvas.height - imageHeight * background_scale) / 2;
+                imageX = (canvas.width - imageWidth) / 2;
+                imageY = (canvas.height - imageHeight) / 2;
 
                 /*x = (imageX - (canvas.width - imageWidth * background_scale) / 2) / background_scale;
                 y = (imageY - (canvas.height - imageHeight * background_scale) / 2) / background_scale;
@@ -81,8 +84,6 @@
     
                 console.log(imageX, imageY);*/
             }
-
-            console.log(imageX, imageY);
 
             if (imageX > 0) imageX = 0;
             if (imageY > 0) imageY = 0;
@@ -172,7 +173,6 @@
     }
 
     function handleImage(e) {
-        console.log(e);
         var reader = new FileReader();
         reader.onload = function (event) {
             image_background.src = event.target.result;
@@ -193,7 +193,6 @@
         reader.onload = function (e) {
             var contents = e.target.result;
             var data = JSON.parse(contents);
-            console.log(data);
 
             var hp = data.hp;
             var attack = data.attack;
@@ -270,8 +269,6 @@
 
                 imageX = x;
                 imageY = y;
-
-                console.log(imageX, imageY);
 
                 image_backgroundLoaded = true;
 
@@ -568,8 +565,6 @@
 
         drawCard(scale, canvas, ctx);
 
-        console.log(scale);
-
         var link = document.createElement('a');
         var name_value = document.querySelector('.name_input').value;
         if (name_value) {
@@ -602,8 +597,6 @@
                 scale: background_scale
             }
         }
-
-        console.log(imageX, imageY);
 
         if (!card_color) data.card_color = 'Blue';
         if (card_type === 'legend') data.legend_text = document.querySelector('.legend_text_input').value;
@@ -690,6 +683,8 @@
 
         background_scale = coefficient;
 
+        console.log(background_scale);
+
         drawCard(1, canvas, ctx);
     });
 
@@ -712,8 +707,8 @@
             var dx = e.clientX - lastMousePos.x;
             var dy = e.clientY - lastMousePos.y;
 
-            imageX += dx / background_scale;
-            imageY += dy / background_scale;
+            imageX += dx;
+            imageY += dy;
 
             drawCard(1, canvas, ctx);
 
@@ -738,10 +733,7 @@
         }
     }).then(res => {
         res.text().then(txt => {
-            console.log(txt);
             var card_colors = JSON.parse(txt);
-
-            console.log(card_colors);
 
             for (var i = 0; i < card_colors.length; i++) {
                 var option = document.createElement('option');
@@ -760,8 +752,6 @@
                     image_frameLoaded = true;
                     drawCard(1, canvas, ctx);
                 }
-
-                console.log(document.querySelector('.color_select').value);
             });
         });
     });
