@@ -204,7 +204,7 @@
             var mana = data.mana;
             var name = data.name;
 
-            var card_color = data.card_color;
+            var color = data.card_color;
             var type = data.card_type;
 
             var image = data.image;
@@ -250,7 +250,7 @@
 
                 card_type = 'spell';
 
-                image_frame.src = `./images/card_colors/${card_color}/card-spell.svg`;
+                image_frame.src = `./images/card_colors/${color}/card-spell.svg`;
                 image_frame.onload = function () {
                     image_frameLoaded = true;
                     drawCard(1, canvas, ctx);
@@ -265,16 +265,30 @@
 
             if (type === 'legend') document.querySelector('.legend_text_input').value = legend_text;
 
+            console.log(color);
+
+            card_color = color;
+            document.querySelector('.color_select').value = color;
+
             background_scale = scale;
+            setPositionFromBackgroundScale(background_scale);
+
+            image_frameLoaded = false;
+            image_backgroundLoaded = false;
+
+            image_frame.src = `./images/card_colors/${card_color}/card-${card_type}.svg`;
+            image_frame.onload = function () {
+                image_frameLoaded = true;
+                drawCard(1, canvas, ctx);
+            }
+
+            imageX = x;
+            imageY = y;
+
             image_background.src = src;
             image_background.onload = function () {
                 image_background.width = width;
                 image_background.height = height;
-
-                imageX = x;
-                imageY = y;
-
-                console.log(imageX, imageY, background_scale);
 
                 image_backgroundLoaded = true;
 
@@ -662,6 +676,26 @@
         mouseDown = false;
     });
 
+    function calculatePositionInPercent(background_scale) {
+        return 10 + (background_scale - 1) * (90 - 10) / 2;
+    }
+
+    function calculateBackgroundScale(positionInPercent) {
+        return 1 + ((positionInPercent - 10) / (90 - 10)) * 2;
+    }
+
+    function setPositionFromBackgroundScale(background_scale) {
+        let positionInPercent = calculatePositionInPercent(background_scale);
+
+        if (positionInPercent < 10) {
+            positionInPercent = 10;
+        } else if (positionInPercent > 90) {
+            positionInPercent = 90;
+        }
+    
+        circle.style.left = positionInPercent + "%";
+    }
+
     document.addEventListener("mousemove", (e) => {
         if (!mouseDown) return;
 
@@ -686,10 +720,9 @@
             positionInPercent = 90;
         }
 
-        const coefficient = 1 + ((positionInPercent - 10) / (90 - 10)) * 2;
         circle.style.left = positionInPercent + "%";
 
-        background_scale = coefficient;
+        background_scale = calculateBackgroundScale(positionInPercent);
 
         console.log(background_scale);
 
