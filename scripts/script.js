@@ -33,7 +33,8 @@
         ctx.shadowOffsetX = 0; // horizontal offset of shadow
         ctx.shadowOffsetY = 0; // vertical offset of shadow
         if (card_color === 'Blue') return '#aed1eaff';
-        if (card_color === 'Green') return '#bff0bcff'//'#c5f0bcff'//'#c9f0bcff';
+        if (card_color === 'Green') return '#bff0bcff';
+        if (card_color === 'Black') return '#e0e0e0ff';
     }
 
     console.log(getTextColor());
@@ -94,7 +95,7 @@
 
             console.log(imageX, imageY);
 
-            ctx.drawImage(image_background, imageX*scale, imageY*scale, imageWidth, imageHeight);
+            ctx.drawImage(image_background, imageX * scale, imageY * scale, imageWidth, imageHeight);
 
             drawDesription(scale, ctx, canvas);
         }
@@ -103,77 +104,77 @@
     function drawDesription(scale, ctx, canvas) {
         var fontSize = 60;
 
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.font = `${50 * scale}px Franklin Gothic`;
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.font = `${50 * scale}px Franklin Gothic`;
+        ctx.fillStyle = getTextColor();
+
+        var name_value = document.querySelector('.name_input').value;
+        var name_width = ctx.measureText(name_value).width;
+
+        ctx.fillText(document.querySelector('.name_input').value, 10 * scale, 48 * scale);
+
+        var mana_value = document.querySelector('.mana_input').value;
+
+        ctx.font = `${45.4184 / cof * scale}px Franklin Gothic`;
+        ctx.fillStyle = getTextColor();
+
+        var x1 = 439;
+        var y1 = 63;
+
+        ctx.font = `bold ${fontSize * scale}px Franklin Gothic`;
+
+        if (mana_value === '2' || mana_value === '3' || mana_value === '9') {
+            x1 += 2;
+        } else if (mana_value === '8') x1 += 1;
+
+        var mana_width = ctx.measureText(mana_value).width;
+
+        ctx.fillText(mana_value, x1 * scale - mana_width / 2, y1 * scale);
+
+        var x2 = 55 * scale;
+        var y2 = 630;
+
+        var attack_value = document.querySelector('.attack_input').value;
+        var attack_width = ctx.measureText(attack_value).width;
+
+        if (attack_value === '2' || attack_value === '3' || attack_value === '9') {
+            x2 += 2 * scale;
+        } else if (attack_value === '8') x2 += 1 * scale;
+
+        if (card_type !== 'spell') ctx.fillText(attack_value, x2 - attack_width / 2, y2 * scale);
+
+        var x3 = 431 * scale;
+        var y3 = 630;
+
+        var health_value = document.querySelector('.hp_input').value;
+        var health_width = ctx.measureText(health_value).width;
+
+        if (health_value === '2' || health_value === '3' || health_value === '9') {
+            x3 += 2 * scale;
+        } else if (health_value === '8') x3 += 1 * scale;
+
+        if (card_type !== 'spell') ctx.fillText(health_value, x3 - health_width / 2, y3 * scale);
+
+        ctx.font = `${40 * scale}px Franklin Gothic`;
+
+        var legend_text = document.querySelector('.legend_text_input').value;
+        var legend_text_width = ctx.measureText(legend_text).width;
+
+        var x4 = 245 * scale;
+        var y4 = 657;
+
+        ctx.fillText(legend_text, x4 - legend_text_width / 2, y4 * scale);
+
+        if (legend_text && card_type !== 'spell') {
+            var x5 = 189;
+            var y5 = 82;
+
             ctx.fillStyle = getTextColor();
+            ctx.font = `${27 * scale}px Franklin Gothic`;
+            ctx.fillText('LEGEND', x5 * scale, y5 * scale);
+        }
 
-            var name_value = document.querySelector('.name_input').value;
-            var name_width = ctx.measureText(name_value).width;
-
-            ctx.fillText(document.querySelector('.name_input').value, 10 * scale, 48 * scale);
-
-            var mana_value = document.querySelector('.mana_input').value;
-
-            ctx.font = `${45.4184 / cof * scale}px Franklin Gothic`;
-            ctx.fillStyle = getTextColor();
-
-            var x1 = 439;
-            var y1 = 63;
-
-            ctx.font = `bold ${fontSize * scale}px Franklin Gothic`;
-
-            if (mana_value === '2' || mana_value === '3' || mana_value === '9') {
-                x1 += 2;
-            } else if (mana_value === '8') x1 += 1;
-
-            var mana_width = ctx.measureText(mana_value).width;
-
-            ctx.fillText(mana_value, x1 * scale - mana_width / 2, y1 * scale);
-
-            var x2 = 55 * scale;
-            var y2 = 630;
-
-            var attack_value = document.querySelector('.attack_input').value;
-            var attack_width = ctx.measureText(attack_value).width;
-
-            if (attack_value === '2' || attack_value === '3' || attack_value === '9') {
-                x2 += 2 * scale;
-            } else if (attack_value === '8') x2 += 1 * scale;
-
-            if (card_type !== 'spell') ctx.fillText(attack_value, x2 - attack_width / 2, y2 * scale);
-
-            var x3 = 431 * scale;
-            var y3 = 630;
-
-            var health_value = document.querySelector('.hp_input').value;
-            var health_width = ctx.measureText(health_value).width;
-
-            if (health_value === '2' || health_value === '3' || health_value === '9') {
-                x3 += 2 * scale;
-            } else if (health_value === '8') x3 += 1 * scale;
-
-            if (card_type !== 'spell') ctx.fillText(health_value, x3 - health_width / 2, y3 * scale);
-
-            ctx.font = `${40 * scale}px Franklin Gothic`;
-
-            var legend_text = document.querySelector('.legend_text_input').value;
-            var legend_text_width = ctx.measureText(legend_text).width;
-
-            var x4 = 245 * scale;
-            var y4 = 657;
-
-            ctx.fillText(legend_text, x4 - legend_text_width / 2, y4 * scale);
-
-            if (legend_text && card_type !== 'spell') {
-                var x5 = 189;
-                var y5 = 82;
-
-                ctx.fillStyle = getTextColor();
-                ctx.font = `${27 * scale}px Franklin Gothic`;
-                ctx.fillText('LEGEND', x5 * scale, y5 * scale);
-            }
-
-            if (document.querySelector('.text_textarea').value) drawText(scale, ctx, canvas);
+        if (document.querySelector('.text_textarea').value) drawText(scale, ctx, canvas);
     }
 
     function handleImage(e) {
@@ -595,8 +596,8 @@
     });
 
     document.querySelector('.create_json_button').addEventListener('click', () => {
-        var width = image_background.width*background_scale;
-        var height = image_background.height*background_scale;
+        var width = image_background.width * background_scale;
+        var height = image_background.height * background_scale;
 
         var card_color = document.querySelector('.color_select').value;
 
@@ -692,7 +693,7 @@
         } else if (positionInPercent > 90) {
             positionInPercent = 90;
         }
-    
+
         circle.style.left = positionInPercent + "%";
     }
 
