@@ -7,7 +7,7 @@
    viewBox="0 0 127.52917 175.94792"
    version="1.1"
    id="svg5"
-   sodipodi:docname="black_legend.svg"
+   sodipodi:docname="card-legend.svg"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -27,9 +27,9 @@
      showgrid="false"
      inkscape:lockguides="true"
      showguides="false"
-     inkscape:zoom="0.5"
-     inkscape:cx="435"
-     inkscape:cy="411"
+     inkscape:zoom="1"
+     inkscape:cx="316.5"
+     inkscape:cy="288.5"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -257,12 +257,12 @@
          y="163.50781" /></text>
     <path
        id="rect299-5"
-       style="display:inline;fill:#767676;fill-opacity:0.80000001;stroke-width:0.0700041;stroke-dasharray:none"
+       style="display:inline;fill:#767676;fill-opacity:0.60000002;stroke-width:0.0700041;stroke-dasharray:none"
        d="m 42.402567,16.454 2.99259,6.02061 h 30.39969 l 2.99207,-6.02031 -2.99207,-5.1e-4 h -30.39969 z"
        sodipodi:nodetypes="ccccccc" />
     <path
        id="rect299-4-0"
-       style="display:inline;fill:#1c1c1c;fill-opacity:0.70980394;stroke-width:0.0700041;stroke-dasharray:none"
+       style="display:inline;fill:#1c1c1c;fill-opacity:0.44999999;stroke-width:0.0700041;stroke-dasharray:none"
        d="m 0,0 v 22.49062 h 19.380207 l 2.99982,-6.03662 23.00709,3e-4 h 3.0001 30.3997 l 3.00033,-5.2e-4 h 23.209443 l 3.00034,6.03632 h 19.53059 L 127.52962,0 Z m 127.52762,22.4901 -0.002,22.34282 0.003,-22.34282 z m -0.002,22.34282 -0.008,51.31936 h -17.52657 l -2.99465,11.32902 -31.062713,-0.52865 -3.93516,-10.80037 h -16.96468 l -3.96824,11.32902 H 22.380027 L 19.380207,96.15228 H 0 v 79.79564 l 64.953657,0.008 -39.95261,-0.045 5.10254,-12.50673 h 69.999863 l 4.51394,12.55686 22.89886,0.003 z"
        sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccc" />
     <g
@@ -306,7 +306,7 @@
        cy="11.337276"
        r="9.2019415" />
     <path
-       style="color:#000000;display:inline;fill:#767676;fill-opacity:0.80000001;stroke-width:0;stroke-dasharray:none"
+       style="color:#000000;display:inline;fill:#767676;fill-opacity:0.60000002;stroke-width:0;stroke-dasharray:none"
        d="m 25.000987,175.91124 5.1026,-12.50705 h 69.999793 l 4.52846,12.59693 z"
        id="path1986-4-4"
        sodipodi:nodetypes="ccccc"

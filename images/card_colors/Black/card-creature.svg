@@ -7,7 +7,7 @@
    viewBox="0 0 127.52917 175.94792"
    version="1.1"
    id="svg5"
-   sodipodi:docname="card-standart-black.svg"
+   sodipodi:docname="card-creature.svg"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -587,7 +587,7 @@
          y="165.2374">12</tspan></text>
     <path
        id="rect299-8-0"
-       style="display:inline;fill:#1c1c1c;fill-opacity:0.71;stroke-width:0.0700041"
+       style="display:inline;fill:#1c1c1c;fill-opacity:0.44999999;stroke-width:0.0700041"
        d="M 0,0 V 175.94792 H 127.52916 V 0 Z m 22.38003,16.453908 82.61666,-1.32e-4 3.00034,6.036323 h 19.53213 l -0.0109,73.662129 H 109.99169 L 106.99705,107.481 75.934345,106.95265 71.999185,96.152228 H 55.03386 L 51.06562,107.48129 22.38003,107.481 19.38021,96.152269 H 0 V 22.490616 h 19.38021 z"
        sodipodi:nodetypes="cccccccccccccccccccccc" />
     <circle
