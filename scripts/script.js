@@ -27,17 +27,27 @@
 
     var cof = 0.75;
 
-    function getTextColor() {
-        ctx.shadowColor = "rgba(0, 0, 0, 0.3)"; // black color with 10% opacity
-        ctx.shadowBlur = 30; // blur level
-        ctx.shadowOffsetX = 0; // horizontal offset of shadow
-        ctx.shadowOffsetY = 0; // vertical offset of shadow
+    function getTextColor(stat, scale, ctx) {
+        ctx.shadowColor = `rgba(0, 0, 0, ${0.3/scale})`;
+        ctx.shadowBlur = 30 * scale;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
         if (card_color === 'Blue') return '#aed1eaff';
         if (card_color === 'Green') return '#bff0bcff';
         if (card_color === 'Black') return '#e0e0e0ff';
-    }
+        if (card_color === 'White') {
+            console.log(stat);
+            if (stat !== 'Description' && stat !== 'Name') {
+                ctx.shadowColor = `rgba(0, 0, 0, ${100})`;
+                ctx.shadowBlur = 40 * scale;
+            } else {
+                ctx.shadowColor = `rgba(0, 0, 0, 0.8)`;
+                ctx.shadowBlur = 26 * scale;
+            }
 
-    console.log(getTextColor());
+            return '#fffdf0ff';
+        }
+    }
 
     function drawCard(scale, canvas, ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -106,17 +116,17 @@
 
         ctx.globalCompositeOperation = 'source-over';
         ctx.font = `${50 * scale}px Franklin Gothic`;
-        ctx.fillStyle = getTextColor();
+        ctx.fillStyle = getTextColor('Decription', scale, ctx);
 
         var name_value = document.querySelector('.name_input').value;
-        var name_width = ctx.measureText(name_value).width;
+        
+        ctx.fillStyle = getTextColor('Name', scale, ctx);
 
         ctx.fillText(document.querySelector('.name_input').value, 10 * scale, 48 * scale);
 
         var mana_value = document.querySelector('.mana_input').value;
 
-        ctx.font = `${45.4184 / cof * scale}px Franklin Gothic`;
-        ctx.fillStyle = getTextColor();
+        ctx.fillStyle = getTextColor('Mana', scale, ctx);
 
         var x1 = 439;
         var y1 = 63;
@@ -143,6 +153,8 @@
 
         if (card_type !== 'spell') ctx.fillText(attack_value, x2 - attack_width / 2, y2 * scale);
 
+        ctx.fillStyle = getTextColor('Attack', scale, ctx);
+
         var x3 = 431 * scale;
         var y3 = 630;
 
@@ -155,6 +167,7 @@
 
         if (card_type !== 'spell') ctx.fillText(health_value, x3 - health_width / 2, y3 * scale);
 
+        ctx.fillStyle = getTextColor('Health', scale, ctx);
         ctx.font = `${40 * scale}px Franklin Gothic`;
 
         var legend_text = document.querySelector('.legend_text_input').value;
@@ -169,7 +182,7 @@
             var x5 = 189;
             var y5 = 82;
 
-            ctx.fillStyle = getTextColor();
+            ctx.fillStyle = getTextColor('Legend text', scale, ctx);
             ctx.font = `${27 * scale}px Franklin Gothic`;
             ctx.fillText('LEGEND', x5 * scale, y5 * scale);
         }
@@ -387,7 +400,7 @@
         if (fontSize > initialFontSize) fontSize = initialFontSize;
 
         ctx.font = `${fontSize}px Franklin Gothic`;
-        ctx.fillStyle = getTextColor();
+        ctx.fillStyle = getTextColor('Description', scale, ctx);
 
         lines = fitText(text, w0, w1, h0, h1, fontSize);
 
@@ -426,8 +439,8 @@
             localY -= (h_top - h_bottom) / 2;
         }
 
-        for (var i = 0; i < lines.length; i++) {
-            ctx.fillStyle = getTextColor();
+        for (var i = 0; i < lines.length; i++) {            
+            ctx.fillStyle = getTextColor('Description', scale, ctx);
 
             var parts = lines[i].text.split(/(\[b\]|\[\/b\])/).filter(Boolean);
 
@@ -446,15 +459,26 @@
                 if (lines.length === 3) lineY += 11.5 * scale;
                 if (lines.length === 4) lineY += 5 * scale;
             }
-
+                
             for (var j = 0; j < parts.length; j++) {
                 if (parts[j] === '[b]') {
                     ctx.font = `bold ${fontSize}px Franklin Gothic`;
                 } else if (parts[j] === '[/b]') {
                     ctx.font = `${fontSize}px Franklin Gothic`;
                 } else {
-                    ctx.fillText(parts[j], x, lineY);
+
+
+                    if (ctx.font.includes('bold')) {
+                        ctx.shadowColor = 'rgba(0, 0, 0, 0.6)'; // Менш насичена тінь для жирного тексту
+                    } else {
+                        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)'; // Більш насичена тінь для нормального тексту
+                    }
+
+
+                    ctx.fillText(parts[j], x, lineY);   
                     x += ctx.measureText(parts[j]).width;
+
+                    ctx.fillStyle = getTextColor('Description', scale, ctx);
                 }
             }
         }
@@ -463,7 +487,6 @@
     function fitText(text, w0, w1, h0, h1, fontSize) {
         if (text) {
             ctx.font = fontSize + `px Franklin Gothic`;
-            ctx.fillStyle = getTextColor();
 
             var lines = [];
             var is_wide = true;
