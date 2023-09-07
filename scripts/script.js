@@ -42,7 +42,7 @@
                 ctx.shadowBlur = 15 * scale;//40
             } else {
                 ctx.shadowColor = `rgba(51, 32, 67, 0.8)`;
-                ctx.shadowBlur = 26 * scale;
+                ctx.shadowBlur = 15 * scale;//26
             }
 
             return '#fffdf0ff';
