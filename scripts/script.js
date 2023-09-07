@@ -38,10 +38,10 @@
         if (card_color === 'White') {
             console.log(stat);
             if (stat !== 'Description' && stat !== 'Name') {
-                ctx.shadowColor = `rgba(0, 0, 0, ${100})`;
-                ctx.shadowBlur = 40 * scale;
+                ctx.shadowColor = `rgba(52, 75, 94, 0.6)`;
+                ctx.shadowBlur = 15 * scale;//40
             } else {
-                ctx.shadowColor = `rgba(0, 0, 0, 0.8)`;
+                ctx.shadowColor = `rgba(51, 32, 67, 0.8)`;
                 ctx.shadowBlur = 26 * scale;
             }
 
@@ -469,11 +469,11 @@
 
 
                     if (ctx.font.includes('bold')) {
-                        ctx.shadowColor = 'rgba(0, 0, 0, 0.6)'; // Менш насичена тінь для жирного тексту
+                        ctx.shadowColor = 'rgba(51, 32, 67, 0.6)'; // Менш насичена тінь для жирного тексту
                     } else {
-                        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)'; // Більш насичена тінь для нормального тексту
+                        ctx.shadowColor = 'rgba(51, 32, 67, 0.8)'; // Більш насичена тінь для нормального тексту
                     }
-
+4
 
                     ctx.fillText(parts[j], x, lineY);   
                     x += ctx.measureText(parts[j]).width;
