@@ -38,8 +38,8 @@
         if (card_color === 'White') {
             console.log(stat);
             if (stat !== 'Description' && stat !== 'Name') {
-                ctx.shadowColor = `rgba(52, 75, 94, 0.6)`;
-                ctx.shadowBlur = 15 * scale;//40
+                ctx.shadowColor = `rgba(54, 48, 17, 0.99)`;//rgba(0, 0, 0, 1.);//`rgba(52, 75, 94, 0.6)`;
+                ctx.shadowBlur = 20 * scale;//40
             } else {
                 ctx.shadowColor = `rgba(51, 32, 67, 0.8)`;
                 ctx.shadowBlur = 15 * scale;//26
